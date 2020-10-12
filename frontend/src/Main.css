@@ -1,0 +1,30 @@
+.searchBar {
+    margin: auto;
+    max-width: 700px;
+}
+
+.searchDropdown {
+    margin-left: 10px;
+    float: right;
+}
+
+.categoryBar {
+    margin: auto;
+}
+
+.productGrid {
+    margin: auto;
+}
+
+.productCard {
+    margin: 20px;
+    max-width: 230px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.productImage {
+    margin: auto;
+    max-width: 150px;
+    max-height: 150px;
+}

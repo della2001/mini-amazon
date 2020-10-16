@@ -5,6 +5,7 @@
 
 .searchDropdown {
     margin-left: 10px;
+    margin-right: 10px;
     float: right;
 }
 
@@ -27,4 +28,13 @@
     margin: auto;
     max-width: 150px;
     max-height: 150px;
+}
+
+.loginForm {
+    margin: auto;
+    max-width: 500px;
+}
+
+.title {
+    font-size: 70px;
 }

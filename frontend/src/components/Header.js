@@ -3,16 +3,16 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
 import FormControl from 'react-bootstrap/FormControl';
-import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import Dropdown  from 'react-bootstrap/Dropdown'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import '../Main.css';
+import { Link, LinkButton } from 'react-router-dom';
 
 class Header extends Component {
     render() {
         return (
             <div class='Header'>
-                <h1>Mini Amazon</h1>
+                <Link to="/" className="title">Mini Amazon</Link>
                 <div className="searchBar">
                     <InputGroup>
                         <FormControl type="text" placeholder="Search for product"/>
@@ -24,8 +24,14 @@ class Header extends Component {
                             <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
                             <Dropdown.Item href="#/action-3">Something else</Dropdown.Item>
                         </DropdownButton>
+                        <Link to='/login' className="loginLink">
+                            <Button>
+                                Register/Log In
+                            </Button>
+                        </Link>
                     </InputGroup>
                 </div>
+                <br></br>
             </div>
             
         )

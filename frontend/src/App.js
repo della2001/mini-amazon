@@ -14,21 +14,55 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cards: [],
+      cards: data,
+      categories: "",
+      sort: ""
     }
   }
 
+  sortProducts = (event) => {
+    console.log(event.target.value)
+    const sort = event.target.value;
+    this.setState((state) => ({
+      sort: sort,
+      cards: this.state.cards.slice().sort((a,b) => (
+        sort === "lowest"?
+        ((a.price > b.price)? 1:-1):
+        sort === "highest"?
+        ((a.price < b.price)? 1:-1):
+        ((a.id > b.id)? 1:-1)
+      ))
+    }))
+  }
+
+  filterProducts = (event) => {
+    if (event.target.value === "") {
+      this.setState({categories: event.target.value, cards: data})
+    } else {
+      this.setState({
+        categories: event.target.value, 
+        cards: data.filter((product) => product.categories.indexOf(event.target.value) >= 0)
+      })
+    }
+  }
+  /*
   componentWillMount() {
     this.setState({
       cards: data,
     })
   }
+  */
   render() {
     return (
       <Router>
         <div className="App">
           <Header/>
-          <Filter count={this.state.cards.length}/>
+          <Filter count={this.state.cards.length}
+          categories={this.state.categories}
+          sort={this.state.sort}
+          filterProducts = {this.filterProducts}
+          sortProducts = {this.sortProducts}
+          />
           <Switch>
             <Route exact path="/" render={(props) => (
               <Home cards={this.state.cards} />

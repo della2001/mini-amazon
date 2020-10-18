@@ -49,7 +49,7 @@ class Buyer(db.Model):
 
 
 class Seller(db.Model):
-    id = db.Column(db.Integer, foreign_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'),
                         nullable=False)
     rating = db.Column(db.Integer)

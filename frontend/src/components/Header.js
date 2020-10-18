@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import InputGroup from 'react-bootstrap/InputGroup';
@@ -9,28 +9,33 @@ import '../Main.css';
 import { Link, LinkButton } from 'react-router-dom';
 
 class Header extends Component {
+
     render() {
         return (
-            <div class='Header'>
+            <div className='Header'>
                 <Link to="/" className="title">Mini Amazon</Link>
-                <div className="searchBar">
-                    <InputGroup>
-                        <FormControl type="text" placeholder="Search for product"/>
-                        <InputGroup.Append>
-                            <InputGroup.Text id="btnGroupAddon2">Search</InputGroup.Text>
-                        </InputGroup.Append>
-                        <Link to='/login' className="loginLink">
-                            <Button>
-                                Register/Log In
-                            </Button>
-                        </Link>
-                    </InputGroup>
+                <div>
+                <Link to='/login' className="loginLink">
+                        <Button>
+                            Register/Log In
+                        </Button>
+                </Link>
                 </div>
                 <br></br>
+                <div className="searchBar">
+                    <form value={this.props.search} onSubmit={this.props.searchProducts}>
+                        <input type="text" name="sb"/>
+                        <input type="submit" value="Search for Product"/>
+                    </form>
+                </div>
+                
+
             </div>
             
         )
     }
+
+    
 }
 
 export default Header;

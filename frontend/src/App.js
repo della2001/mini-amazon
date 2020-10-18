@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
 import './App.css';
@@ -9,14 +9,44 @@ import Header from './components/Header'
 import Login from './components/Login'
 import data from './data/items.json';
 import Filter from './components/Filter';
+import Cart from './components/Cart'
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       cards: data,
+      cartItems: [],
+      search: "",
       categories: "",
       sort: ""
+    }
+  }
+
+  addToCart = (product) => {
+    const cartItems = this.state.cartItems.slice();
+    let alreadyInCart = false;
+    cartItems.forEach(item => {
+      if(item.id === product.id) {
+        item.count++;
+        alreadyInCart = true;
+      }
+    });
+    if(!alreadyInCart) {
+      cartItems.push({...product, count: 1})
+    }
+    this.setState({cartItems})
+  }
+  searchProducts = (event) => {
+    console.log(event.target.value)
+    console.log('hello')
+    if (event.target.value === "") {
+      this.setState({search: event.target.value, cards: data})
+    } else {
+      this.setState({
+        search: event.target.value, 
+        cards: data.filter((product) => product.indexOf(event.target.value) >= 0)
+      })
     }
   }
 
@@ -56,7 +86,8 @@ class App extends Component {
     return (
       <Router>
         <div className="App">
-          <Header/>
+          <Header search={this.state.search}
+          searchProducts = {this.searchProducts}/>
           <Filter count={this.state.cards.length}
           categories={this.state.categories}
           sort={this.state.sort}
@@ -65,7 +96,7 @@ class App extends Component {
           />
           <Switch>
             <Route exact path="/" render={(props) => (
-              <Home cards={this.state.cards} />
+              <Home cards={this.state.cards}/>
             )} />
             <Route exact path="/login" render={(props) => (
               <Login/>
@@ -80,6 +111,9 @@ class App extends Component {
             }} />
             <Route component={Error} />
           </Switch>
+          <div>
+            <Cart cartItems = {this.state.cartItems}/>
+          </div>
         </div>
       </Router>
     );

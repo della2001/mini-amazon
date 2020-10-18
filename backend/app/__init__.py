@@ -9,8 +9,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 from app.user.views import user_blueprint
-from app.item.views import item_blueprint
+#from app.item.views import item_blueprint
 
 app.register_blueprint(user_blueprint)
-app.register_blueprint(item_blueprint)
+#app.register_blueprint(item_blueprint)
 

@@ -10,16 +10,6 @@ import {BrowserRouter as Router, Switch, Route, Link, useParams} from "react-rou
 const Home = (props) => {
   return (
     <div>
-        {/*
-            <ButtonToolbar> 
-                    <ButtonGroup className="categoryBar">
-                        <Button variant="secondary">Fashion</Button>{' '}
-                        <Button variant="secondary">Food/Drinks</Button>{' '}
-                        <Button variant="secondary">Home Appliances</Button>{' '}
-                        <Button variant="secondary">School Supplies</Button>
-                    </ButtonGroup>
-                </ButtonToolbar>
-        */}
                 
                 <br></br>
                 <div className="Grid animated bounceInUp">
@@ -30,6 +20,7 @@ const Home = (props) => {
                     <Card 
                     key={card.id} 
                     card={card} 
+                    addToCart={card}
                     />
                 ))
                 }

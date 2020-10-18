@@ -16,3 +16,29 @@ All the dependencies are in the requirements.txt so please take a look
 [ ] item
 
 <!-- add more as neccessary -->
+
+# How to start the server
+
+1. check if mysql is runnig locally
+
+if not run these commands
+
+```
+$ brew install mysql
+$ brew install mysql-client
+$ brew cask install mysqlworkbench
+```
+
+Then
+
+```
+$ brew services start mysql
+```
+
+to start the server
+
+2. Now use the mysql-client to get the port for your mysql server
+
+```
+$ mysql -uroot
+```

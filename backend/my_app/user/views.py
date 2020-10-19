@@ -5,7 +5,6 @@ from my_app.user.models import User
 
 user_blueprint = Blueprint('user', __name__)
 
-
 @user_blueprint.route('/')
 @user_blueprint.route('/home')
 def home():
@@ -27,6 +26,7 @@ class UserView(MethodView):
     def post(self):
         name = request.form.get('name')
         username = request.form.get('username')
+        
         exit_user = User.query.filter_by(username=username).first()
         if not exit_user:
             password = request.form.get('password')

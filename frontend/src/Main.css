@@ -30,6 +30,7 @@
     max-width: 500px;
 }
 
+
 .title {
     font-size: 70px;
 }
@@ -43,4 +44,14 @@
 
 .filter div {
     flex: 1;
+}
+
+.card-image-details {
+    margin: auto;
+    width: 50%;
+}
+
+.productdetails {
+    margin-left: 150px;
+    margin-right: 100px;
 }

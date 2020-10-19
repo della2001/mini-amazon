@@ -7,7 +7,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root@localhost/mini_amazon'
 # this config should be later changed
 # skip username and password etc, just use root cuz it's not productio lol
 db = SQLAlchemy(app)
-db.create_all()
+with app.app_context():
+    db.create_all()
 
 from my_app.user.views import user_blueprint
 app.register_blueprint(user_blueprint)

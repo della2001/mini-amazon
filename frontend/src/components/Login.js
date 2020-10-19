@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
@@ -7,13 +7,54 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import {BrowserRouter as Router, Switch, Route, Link, useParams} from "react-router-dom";
 
+
+
 class Login extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {value: '',
+                      userID: ''};
+    
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+      }
+    
+      handleChange(event) {
+        this.setState({value: event.target.value});
+      }
+    
+      handleSubmit(event) {
+        console.log("making request")
+        fetch("/registration", {
+            method:"POST",
+            headers:{
+                "content_type":"application/json",
+            },
+            body:JSON.stringify(this.state.value)
+            }
+        ).then(response => {
+    
+            return response.json()
+            })
+            .then(json => {
+            
+            this.setState({playerName: json[0]})
+            })
+      }
+
     render() {
         return (
             <div class='loginForm'>
                 <h1>Register/Log In</h1><br></br>
-                <Form>
-                <Row>
+                <Form onSubmit={this.handleSubmit} action="http://localhost:5000/registration/" method="POST">
+                    <Form.Control name="name" placeholder="Name" />
+                    <Form.Control name="username" placeholder="Username" />
+                    <Form.Control name="password" placeholder="Password" />
+                    <Form.Control name="address" placeholder="Email Address" />
+                    <Form.Check label="Seller" size="sm" name="isSeller" />
+                    <Form.Check label="Buyer" size="sm" name="isBuyer" />
+                    <br></br>
+                {/*<Row>
                     <Col>
                     <Form.Label>First Name</Form.Label>
                     <Form.Control placeholder="First name" />
@@ -37,7 +78,8 @@ class Login extends Component {
                     <Form.Control type="password" placeholder="Password" />
                 </Form.Group>
                 <br></br>
-                <Button variant="primary" type="submit">
+                */}
+                <Button variant="primary" type="submit" onChange={this.handleChange} value={this.state.value}>
                     Submit
                 </Button>
                 </Form>
@@ -47,4 +89,5 @@ class Login extends Component {
     }
 }
  
+
 export default Login;

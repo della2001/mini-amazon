@@ -15,11 +15,12 @@ export default class Card extends Component {
       <div className="card">
     <Link to={`/product/${this.props.card.id}`}>
       <div className="front">
-        <img src={this.props.card.imgUrl} className="card-image" />
+        <img src={this.props.card.image} className="card-image" />
         <div className="container">
-          <h3>{this.props.card.name}</h3>
+          <h3><span className="cardtitle">{this.props.card.name}</span></h3>
           <h3><span className="price"> ${this.props.card.price}</span></h3> 
-          <p>{this.props.card.description}</p>
+          {/*<p>{this.props.card.description}</p>*/}
+          <br></br>
           <button
               onClick={() => this.props.addToCart(product)}
               className="button primary"

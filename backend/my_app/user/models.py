@@ -2,19 +2,22 @@ from my_app import db
 
 
 class User(db.Model):
-    __tablename__ = 'User'
+    # __tablename__ = 'User'
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(50))
     username = db.Column(db.String(10))
     password = db.Column(db.String(10))
 
     def __init__(self, name, username, password, is_buyer, address, is_seller):
+        self.id = 4
         self.name = name
         self.username = username
         self.password = password
         if is_buyer:
+            print("reached here")
             Buyer(self.id, address)
         if is_seller:
+            print("reached here")
             Seller(self.id)
 
     def save(self):

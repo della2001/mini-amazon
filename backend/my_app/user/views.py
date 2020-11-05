@@ -1,9 +1,12 @@
+import pdb
+
 from flask import request, jsonify, Blueprint
 from flask.views import MethodView
 from my_app import db, app
 from my_app.user.models import User
 
 user_blueprint = Blueprint('user', __name__)
+
 
 @user_blueprint.route('/')
 @user_blueprint.route('/home')
@@ -24,18 +27,18 @@ class UserView(MethodView):
         return jsonify(response)
 
     def post(self):
-        name = request.form.get('name')
-        username = request.form.get('username')
-        
+        print("posting a user")
+        print("request", request.json)
+        name = request.json['name']
+        username = request.json["username"]
         exit_user = User.query.filter_by(username=username).first()
         if not exit_user:
-            password = request.form.get('password')
-            is_buyer = request.form.get('is_buyer')
-            address = request.form.get('address')
-            is_seller = request.form.get('is_seller')
-
-            new_user = User(name, username, password,
-                            is_buyer, address, is_seller)
+            print("should reach here")
+            password = request.json["password"]
+            is_buyer = request.json["is_buyer"]
+            address = request.json["address"]
+            is_seller = request.json["is_seller"]
+            new_user = User(name, username, password, is_buyer, address, is_seller)
             db.session.add(new_user)
             db.session.commit()
             return jsonify({
@@ -48,7 +51,7 @@ class UserView(MethodView):
                 'message': 'User already exists. Please login.'
             }
 
-            return jsonify(response)
+        return jsonify(response)
 
     def delete(self, id):
 

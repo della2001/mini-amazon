@@ -33,6 +33,7 @@ Using separate terminal windows:
 
 1. Start mysql server (refer to the README In /backend if you dont have mysql installed)
         brew services start mysql
+    Then to open mysql
         mysql -uroot
 
 2. Start Flask server (in /backend folder):

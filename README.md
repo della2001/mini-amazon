@@ -25,23 +25,26 @@
 * implement frontend functionalities (search bar, etc)
 * account for edge cases (both buyer and seller, buyer trying to sell, buyer buying an out of stock product)
 
-### IMPORTANT: since we allegedly have 6 members we also need an extra functionality. which we decided was Warehouse/Storage/Shipping.  
+### IMPORTANT: 
+since we allegedly have 6 members we also need an extra functionality. which we decided was Warehouse/Storage/Shipping.  
 
 
 ### How to run the files:
 Using separate terminal windows:
 
 1. Start mysql server (refer to the README In /backend if you dont have mysql installed)
+~~~
         brew services start mysql
-    Then to open mysql
         mysql -uroot
-
+~~~
 2. Start Flask server (in /backend folder):
+~~~
         python run.py
-
+~~~
 3. Run React (in /frontend folder):
+~~~
         yarn start
- 
+~~~
 
 
 

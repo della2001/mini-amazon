@@ -7,7 +7,6 @@ from my_app.user.models import User
 
 user_blueprint = Blueprint('user', __name__)
 
-
 @user_blueprint.route('/')
 @user_blueprint.route('/home')
 def home():

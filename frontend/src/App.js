@@ -18,7 +18,7 @@ class App extends Component {
       cards: data,
       cartItems: [],
       search: "",
-      categories: "",
+      category: "",
       sort: ""
     }
   }
@@ -67,11 +67,11 @@ class App extends Component {
 
   filterProducts = (event) => {
     if (event.target.value === "") {
-      this.setState({categories: event.target.value, cards: data})
+      this.setState({category: event.target.value, cards: data})
     } else {
       this.setState({
-        categories: event.target.value, 
-        cards: data.filter((product) => product.categories.indexOf(event.target.value) >= 0)
+        category: event.target.value, 
+        cards: data.filter((product) => product.category.indexOf(event.target.value) >= 0)
       })
     }
   }
@@ -89,7 +89,7 @@ class App extends Component {
           <Header search={this.state.search}
           searchProducts = {this.searchProducts}/>
           <Filter count={this.state.cards.length}
-          categories={this.state.categories}
+          category={this.state.category}
           sort={this.state.sort}
           filterProducts = {this.filterProducts}
           sortProducts = {this.sortProducts}

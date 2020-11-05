@@ -7,10 +7,13 @@ export default class Filter extends Component {
                 <div className="filter-result">Product Count: {this.props.count}</div>
                 <div className="filter-categories">
                     {" "}
-                    Categories <select value={this.props.categories} onChange={this.props.filterProducts}>
+                    Categories <select value={this.props.category} onChange={this.props.filterProducts}>
                         <option value="">Any</option>
-                        <option value="Home Appliances">Home Appliances</option>
-                        <option value="Fashion">Fashion</option>
+                        <option value="Arts">Arts, Crafts & Sewing</option>
+                        <option value="Electronics">Electronics</option>
+                        <option value="Home">Home Decor</option>
+                        <option value="Kitchen">Kitchen and Dining</option>
+                        <option value="Garden">Garden</option>
                     </select>
                 </div>
                 <div className="filter-sort">

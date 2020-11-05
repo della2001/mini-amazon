@@ -9,6 +9,7 @@ class User(db.Model):
     password = db.Column(db.String(10))
 
     def __init__(self, name, username, password, is_buyer, address, is_seller):
+        self.id = 4
         self.name = name
         self.username = username
         self.password = password

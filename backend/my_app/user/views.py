@@ -1,3 +1,5 @@
+import pdb
+
 from flask import request, jsonify, Blueprint
 from flask.views import MethodView
 from my_app import db, app
@@ -36,9 +38,7 @@ class UserView(MethodView):
             is_buyer = request.json["is_buyer"]
             address = request.json["address"]
             is_seller = request.json["is_seller"]
-
-            new_user = User(name, username, password,
-                            is_buyer, address, is_seller)
+            new_user = User(name, username, password, is_buyer, address, is_seller)
             db.session.add(new_user)
             db.session.commit()
             return jsonify({

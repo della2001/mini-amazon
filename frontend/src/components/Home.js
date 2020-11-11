@@ -12,7 +12,7 @@ const Home = (props) => {
     <div>
                 
                 <br></br>
-                <div className="Grid animated bounceInUp">
+                <div>
                     <Container>
                         <Row>
                         {

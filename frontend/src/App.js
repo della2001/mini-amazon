@@ -38,14 +38,14 @@ class App extends Component {
     this.setState({cartItems})
   }
   searchProducts = (event) => {
-    console.log(event.target.value)
     console.log('hello')
+    console.log(event.target.value)
     if (event.target.value === "") {
       this.setState({search: event.target.value, cards: data})
     } else {
       this.setState({
         search: event.target.value, 
-        cards: data.filter((product) => product.indexOf(event.target.value) >= 0)
+        cards: data.filter((product) => product.name.toLowerCase().indexOf(event.target.value.toLowerCase()) >= 0)
       })
     }
   }
@@ -102,7 +102,9 @@ class App extends Component {
               <Login/>
             )} />
             <Route exact path="/product/:id" render={(props) => {
+              console.log(props.match.url);
               let cardPosition = props.location.pathname.replace('/product/', '');
+              console.log(cardPosition)
               return (
                 <ProductDetails
                   card={this.state.cards[cardPosition]}

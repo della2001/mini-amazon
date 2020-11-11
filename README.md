@@ -1,5 +1,10 @@
 # mini-amazon
 
+## 11/11 Update (Della):
+* added a working search function
+* fixed design of homepage
+* currently fixing a few bugs regarding product details
+
 ## 11/5 Update (Della):
 
 ### Things I did that are working:

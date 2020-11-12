@@ -21,14 +21,7 @@ class Header extends Component {
                         {" "}
                         <Form value={this.props.search} onChange={this.props.searchProducts}>
                             <Form.Control type="text" placeholder="Search"></Form.Control>
-                            {/*<Button variant="primary" type="submit">Submit</Button>*/}
                         </Form>
-                    {/*
-                        <form value={this.props.search} onSubmit={this.props.searchProducts} style={{ width:"500px" }}>
-                            <input type="text" name="sb"/>
-                            <input type="submit" value="Search for Product"/>
-                        </form>
-                    */}
                     </span>
                     <Link className="cartButton">Cart</Link>
                     <span className="loginButton">
@@ -39,41 +32,9 @@ class Header extends Component {
                     </Link>
                     </span>
                 </Row>
-                
-                <div className="categoryBar">
-                <Nav
-                    className="justify-content-center"
-                    activeKey="/home"
-                    onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
-                >
-                    <Nav.Item>
-                        <Nav.Link href="/home">Category</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link href="/home">Category</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link href="/home">Category</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link href="/home">Category</Nav.Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                        <Nav.Link href="/home">Category</Nav.Link>
-                    </Nav.Item>
-                </Nav>
-                </div>
-                
-                
-                
-                
-
             </div>
-            
         )
-    }
-
-    
+    }   
 }
 
 export default Header;

@@ -16,14 +16,14 @@ const Home = (props) => {
                     <Container>
                         <Row>
                         {
-                props.cards.map((card) => (
-                    <Card 
-                    key={card.id} 
-                    card={card} 
-                    addToCart={card}
-                    />
-                ))
-                }
+                          props.cards.map((card) => (
+                              <Card 
+                              key={card.id} 
+                              card={card} 
+                              addToCart={card}
+                              />
+                          ))
+                          }
                         </Row>
                     </Container>
                 

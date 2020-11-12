@@ -1,5 +1,10 @@
 # mini-amazon
 
+## 11/12 Update (Della):
+* fixed all homepage bugs so far
+* added category bar
+* changed sample data
+
 ## 11/11 Update (Della):
 * added a working search function
 * fixed design of homepage

@@ -12,18 +12,18 @@ const Home = (props) => {
     <div>
                 
                 <br></br>
-                <div className="Grid animated bounceInUp">
+                <div>
                     <Container>
                         <Row>
                         {
-                props.cards.map((card) => (
-                    <Card 
-                    key={card.id} 
-                    card={card} 
-                    addToCart={card}
-                    />
-                ))
-                }
+                          props.cards.map((card) => (
+                              <Card 
+                              key={card.id} 
+                              card={card} 
+                              addToCart={card}
+                              />
+                          ))
+                          }
                         </Row>
                     </Container>
                 

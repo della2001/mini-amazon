@@ -9,6 +9,11 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root@localhost/mini_amazon'
 db = SQLAlchemy(app)
 db.create_all()
 
+# TODO write some scripts for adding new data
+# ex) feel free to use item/models.py for reference. 
+
 from my_app.user.views import user_blueprint    
 app.register_blueprint(user_blueprint)
+from my_app.item.views import item_blueprint
+app.register_blueprint(item_blueprint)
 # app.register_blueprint(item_blueprint)

@@ -38,14 +38,14 @@ class App extends Component {
     this.setState({cartItems})
   }
   searchProducts = (event) => {
-    console.log(event.target.value)
     console.log('hello')
+    console.log(event.target.value)
     if (event.target.value === "") {
       this.setState({search: event.target.value, cards: data})
     } else {
       this.setState({
         search: event.target.value, 
-        cards: data.filter((product) => product.indexOf(event.target.value) >= 0)
+        cards: data.filter((product) => product.name.toLowerCase().indexOf(event.target.value.toLowerCase()) >= 0)
       })
     }
   }
@@ -69,12 +69,16 @@ class App extends Component {
     if (event.target.value === "") {
       this.setState({category: event.target.value, cards: data})
     } else {
+      console.log('FILTER');
+      console.log(data.filter((product) => product.category.indexOf(event.target.value) >= 0));
       this.setState({
         category: event.target.value, 
         cards: data.filter((product) => product.category.indexOf(event.target.value) >= 0)
       })
     }
   }
+
+  
   /*
   componentWillMount() {
     this.setState({
@@ -94,6 +98,7 @@ class App extends Component {
           filterProducts = {this.filterProducts}
           sortProducts = {this.sortProducts}
           />
+
           <Switch>
             <Route exact path="/" render={(props) => (
               <Home cards={this.state.cards}/>
@@ -105,7 +110,7 @@ class App extends Component {
               let cardPosition = props.location.pathname.replace('/product/', '');
               return (
                 <ProductDetails
-                  card={this.state.cards[cardPosition]}
+                  card={this.state.cards.find(o => o.id === parseInt(cardPosition))}
                 />
               );
             }} />

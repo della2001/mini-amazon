@@ -1,7 +1,7 @@
 from my_app import db
 
 class Cart(db.Model):
-    __tablename__ = 'Cart'
+    # __tablename__ = 'Cart'
     id = db.Column(db.Integer, primary_key=True)
     iname = db.Column(db.String(50)) #itemname
     sname = db.Column(db.String(50)) #sellername

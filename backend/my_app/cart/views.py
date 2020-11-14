@@ -39,19 +39,19 @@ class CartView(MethodView):
     def delete(self, id):
         cart = Cart.query.filter_by(id=id).first()
         if cart:
-            Cart.delete()
+            cart.delete()
             return jsonify({'msg': 'cart deleted'})
         else:
             return jsonify({'msg': 'cart not found'})
 
 Cart_view = CartView.as_view('cart_view')
 
-app.add_url_rule(
-    '/registration/', view_func=Cart_view, methods=['POST']
-)
-app.add_url_rule(
-    '/user/<int:id>', view_func=Cart_view, methods=['GET']
-)
-app.add_url_rule(
-    '/deleteuser/<int:id>', view_func=Cart_view, methods=['DELETE']
-)
+# app.add_url_rule(
+#     '/registration/', view_func=Cart_view, methods=['POST']
+# )
+# app.add_url_rule(
+#     '/user/<int:id>', view_func=Cart_view, methods=['GET']
+# )
+# app.add_url_rule(
+#     '/deleteuser/<int:id>', view_func=Cart_view, methods=['DELETE']
+# )

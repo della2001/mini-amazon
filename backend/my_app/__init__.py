@@ -26,6 +26,7 @@ with open('amazon_data.csv', newline='') as csvfile:
     for row in reader:
         url = row['product_url']
         name = row['product_name']
+        # truncate the string cuz idk why the names are so long...
         name = name[0:150]
         price = row['price']
         category = row['category']
@@ -41,6 +42,7 @@ from my_app.user.views import user_blueprint
 app.register_blueprint(user_blueprint)
 from my_app.item.views import item_blueprint
 app.register_blueprint(item_blueprint)
+from my_app.item.views import rating_blueprint
+app.register_blueprint(rating_blueprint)
 from my_app.cart.views import cart_blueprint 
 app.register_blueprint(cart_blueprint)
-# add rating and cart

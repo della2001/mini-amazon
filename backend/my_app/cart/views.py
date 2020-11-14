@@ -6,55 +6,28 @@ from my_app.cart.models import Cart
 cart_blueprint = Blueprint('cart', __name__)
 
 class CartView(MethodView):
-
-
-    
-    def get(self, id):
-        cart = Cart.query.filter_by(id=id).first()
-        response = {
-            'cart_id': cart.cart_id,
-            'image': cart.image,
-            'item_name': cart.iname, 
-            'seller_name':cart.sname,
-            'price': cart.price,
-            'count': cart.count,
-            'total': cart.total
-        }
-        return jsonify(response)
+    def get(self, user_id):
+        cart = Cart.query.filter_by(user_id=user_id).all() # this will get all the items in the cart for userA 
+        return jsonify(cart)
    
     def post(self):
-        print("posting a cart")
-        print("request", request.json)
-        iname = request.json['item_name']
-        sname = request.json['seller_name']
-        image = request.json["image"]
-        price = request.json["price"]
+        item_id= request.json['item_id']
+        user_id= request.json['user_id']
         count = request.json["count"]
-        total = request.json["total"]
-
-        new_cart = Cart(iname, sname,  image, price,
-                            count, total)
+        new_cart = Cart(item_id, user_id, count)
         db.session.add(new_cart)
         db.session.commit()
         return jsonify({
-                'cart_ids': new_cart.id
+                'result': True
             })
-    def delete(self, id):
-        cart = Cart.query.filter_by(id=id).first()
-        if cart:
-            cart.delete()
-            return jsonify({'msg': 'cart deleted'})
-        else:
-            return jsonify({'msg': 'cart not found'})
+    def delete(self, item_id):
+        row = Cart.query.filter_by(item_id = item_id).first()
+        row.delete()
 
 Cart_view = CartView.as_view('cart_view')
-
-# app.add_url_rule(
-#     '/registration/', view_func=Cart_view, methods=['POST']
-# )
-# app.add_url_rule(
-#     '/user/<int:id>', view_func=Cart_view, methods=['GET']
-# )
-# app.add_url_rule(
-#     '/deleteuser/<int:id>', view_func=Cart_view, methods=['DELETE']
-# )
+app.add_url_rule(
+    '/cart', view_func=Cart_view, methods=['POST']
+)
+app.add_url_rule(
+    '/cart/<int:user_id>', view_func=Cart_view, methods=['GET']
+)

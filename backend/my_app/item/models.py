@@ -11,6 +11,7 @@ class Item(db.Model):
     description = db.Column(db.Text)
     brand = db.Column(db.String(100))
     rating = db.relationship("Rating", backref='item', lazy=True)
+    item_id  = db.relationship("Cart", backref='item', lazy=True)
 
     def __init__(self, url, name, price, category, image, description, brand):
         self.url = url

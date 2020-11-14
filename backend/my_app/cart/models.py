@@ -2,24 +2,15 @@ from my_app import db
 
 class Cart(db.Model):
     # __tablename__ = 'Cart'
-    id = db.Column(db.Integer, primary_key=True)
-    iname = db.Column(db.String(50)) #itemname
-    sname = db.Column(db.String(50)) #sellername
-    image = db.Column(db.String(100))
-    price = db.Column(db.Float)
-    count = db.Column(db.Integer)
-    #removebutton?
-    total = db.Column(db.Float)
-    #checkoutbutton?
-
-    def __init__(self, iname, sname, image, price, count, total):
-        self.iname = iname
-        self.sname = sname
-        self.image = image
-        self.price = price
-        self.count = count
-        self.total = total
+    item_id = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    count = db.Column(db.String(100))
     
+    def __init__(self, item_id, user_id, count):
+        self.item_id = item_id
+        self.user_id = user_id
+        self.count = count
+
     def save(self):
         db.session.add(self)
         db.session.commit()

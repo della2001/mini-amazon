@@ -48,9 +48,6 @@ class ItemView(MethodView):
         else:
             return jsonify({'msg': 'item not found'})
     
-    def search(self, item_name):
-        print("searching for item")
-        # TODO write logic here
         
 Item_view = ItemView.as_view('item_view')
 
@@ -64,6 +61,12 @@ app.add_url_rule(
     '/delete/<int:id>', view_func=Item_view, methods=['DELETE']
 )
 
-app.add_url_rule(
-    '/search/<string:query>', view_func=Item_view, methods=['GET']
-)
+@app.app.route('/search/<item_name>')
+def search_by_name(self, item_name):
+    print("searching for item")
+    # TODO write logic here
+    items = Item.query.filter(Item.name.like(item_name)).all()
+    return jsonify(
+        items
+    )
+    

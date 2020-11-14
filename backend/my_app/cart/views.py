@@ -7,8 +7,7 @@ cart_blueprint = Blueprint('cart', __name__)
 
 class CartView(MethodView):
     def get(self, id):
-        cart = cart.query.filter_by(id=id).first()
-
+        cart = Cart.query.filter_by(id=id).first()
         response = {
             'cart_id': cart.cart_id,
             'image': cart.image,
@@ -40,7 +39,7 @@ class CartView(MethodView):
     def delete(self, id):
         cart = Cart.query.filter_by(id=id).first()
         if cart:
-            user.delete()
+            Cart.delete()
             return jsonify({'msg': 'cart deleted'})
         else:
             return jsonify({'msg': 'cart not found'})

@@ -32,9 +32,10 @@ class ItemView(MethodView):
         price = request.json["price"]
         description = request.json["description"]
         category = request.json["category"]
+        brand = request.json["brand"]
 
         new_item = Item(url, name,  price, category,
-                            image, description)
+                            image, description, brand)
         db.session.add(new_item)
         db.session.commit()
         return jsonify({
@@ -58,10 +59,41 @@ app.add_url_rule(
     '/item/<int:id>', view_func=Item_view, methods=['GET']
 )
 app.add_url_rule(
-    '/delete/<int:id>', view_func=Item_view, methods=['DELETE']
+    '/item/delete/<int:id>', view_func=Item_view, methods=['DELETE']
 )
 
-@app.app.route('/search/<item_name>')
+
+
+rating_blueprint = Blueprint('rating', __name__)
+
+class RatingView(MethodView):
+    def post(self):
+        print("posting a item")
+        print("request", request.json)
+        # name = request.json['name']
+        # image = request.json["image"]
+        # url = request.json["url"]
+        # price = request.json["price"]
+        # description = request.json["description"]
+        # category = request.json["category"]
+
+        # new_item = Item(url, name,  price, category,
+        #                     image, description)
+        # db.session.add(new_item)
+        # db.session.commit()
+        # return jsonify({
+        #         'item_ids': new_item.id
+        #     })
+    
+        
+Item_view = ItemView.as_view('rating_view')
+
+app.add_url_rule(
+    '/rating/', view_func=Item_view, methods=['POST']
+)
+
+
+@app.route('/search/<item_name>')
 def search_by_name(self, item_name):
     print("searching for item")
     # TODO write logic here

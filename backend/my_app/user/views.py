@@ -1,18 +1,9 @@
-import pdb
-
 from flask import request, jsonify, Blueprint
 from flask.views import MethodView
 from my_app import db, app
 from my_app.user.models import User
 
 user_blueprint = Blueprint('user', __name__)
-
-
-@user_blueprint.route('/')
-@user_blueprint.route('/home')
-def home():
-    return "Welcome to the library Home."
-
 
 class UserView(MethodView):
 

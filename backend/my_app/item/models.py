@@ -3,13 +3,13 @@ from my_app import db
 class Item(db.Model):
     # __tablename__ = 'Item'
     id = db.Column(db.Integer, primary_key=True)
-    url = db.Column(db.String(100))
-    name = db.Column(db.String(50))
+    url = db.Column(db.String(300))
+    name = db.Column(db.String(200))
     price = db.Column(db.Float)
-    category = db.Column(db.Integer)
-    image = db.Column(db.String(100))
-    description = db.Column(db.String(10))
-    brand = db.Column(db.String(20))
+    category = db.Column(db.String(50))
+    image = db.Column(db.String(200))
+    description = db.Column(db.Text)
+    brand = db.Column(db.String(100))
     rating = db.relationship("Rating", backref='item', lazy=True)
 
     def __init__(self, url, name, price, category, image, description, brand):

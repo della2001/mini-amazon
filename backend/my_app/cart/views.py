@@ -6,6 +6,9 @@ from my_app.cart.models import Cart
 cart_blueprint = Blueprint('cart', __name__)
 
 class CartView(MethodView):
+
+
+    
     def get(self, id):
         cart = Cart.query.filter_by(id=id).first()
         response = {

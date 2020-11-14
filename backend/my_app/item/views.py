@@ -70,22 +70,17 @@ class RatingView(MethodView):
     def post(self):
         print("posting a item")
         print("request", request.json)
-        # name = request.json['name']
-        # image = request.json["image"]
-        # url = request.json["url"]
-        # price = request.json["price"]
-        # description = request.json["description"]
-        # category = request.json["category"]
 
-        # new_item = Item(url, name,  price, category,
-        #                     image, description)
-        # db.session.add(new_item)
-        # db.session.commit()
-        # return jsonify({
-        #         'item_ids': new_item.id
-        #     })
-    
+        user_id = request.json['user_id']
+        item_id = request.json['item_id']
+        rating = request.json['rating']
         
+        new_rating = Rating(user_id, item_id, rating)
+
+        return jsonify({
+            'result': True
+        })
+
 Item_view = ItemView.as_view('rating_view')
 
 app.add_url_rule(

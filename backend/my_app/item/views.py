@@ -83,6 +83,27 @@ def get_all_items():
 
     return jsonify(result)
 
+@app.route('/items/small')
+def get_small_items():
+    print("getting all the items")
+    items = Item.query.limit(20).all()
+    result = []
+    for item in items:
+        result.append(
+            {
+                "item_id": item.id, 
+                "url": item.url, 
+                "name": item.name, 
+                "price": item.price,
+                "category": item.category, 
+                "image": item.image, 
+                "description": item.description, 
+                "brand": item.brand
+            }
+        )
+
+    return jsonify(result)
+
 rating_blueprint = Blueprint('rating', __name__)
 
 class RatingView(MethodView):

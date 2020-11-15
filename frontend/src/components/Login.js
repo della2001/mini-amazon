@@ -1,34 +1,44 @@
-import React, { Component, useState, useEffect } from 'react';
-import { useForm } from "react-hook-form";
+import React, { Component } from 'react';
+
+class Login extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { username: '', password:'', name: '', id: null, submitted: false };
+    this.handleChange= this.handleChange.bind(this);
+    this.handleSubmit= this.handleSubmit.bind(this); 
+  }
+
+  handleChange = (event) => {
+    this.setState({[event.target.name]: event.target.value});
+  }
+
+  handleSubmit = (event) => {
+    var url = '/login/' + this.state.username + '/' + this.state.password;
+
+    fetch(url).then(function(response) {
+        console.log(response);
+        return response.json();
+      })
+      .then(data =>  this.setState({name: data.name, id: data.user_id, submitted: true}), );
+    event.preventDefault();
+}
 
 
-function Login() {
-  
-    const { login, handleSubmit } = useForm();
-    const onSubmit = data => {
-      var url = "/user/test";
-      console.log(url);
-      fetch(url);
-      console.log('LOGGED IN USER');
-      console.log(data);
-      };
-  
+  render() {
+    const { username, password, name } = this.state;
     return (
-      <div className="Login">
-        <h3>Log into existing account</h3>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div>
-            <input name="username" placeholder="Username" ref={login} />
-          </div>
-          <div>
-            <input name="password" placeholder="Password" ref={login} />
-          </div>
-          <input type="submit" value="Log In"/>
+      <div>
+        <form onSubmit={this.handleSubmit}>
+          <input type="text" value={username} name="username" onChange={this.handleChange} placeholder="Username"/>
+          <input type="text" value={password} name="password" onChange={this.handleChange} placeholder="Password"/>
+          <input type="submit" value="Submit" />
         </form>
+        <br></br>
+        {this.state.submitted ? <h3>Welcome back, {name}!</h3> : ''}
       </div>
+      
     );
-    
-  
+  }
 }
 
 export default Login;

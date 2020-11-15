@@ -23,14 +23,9 @@ class Header extends Component {
                             <Form.Control type="text" placeholder="Search"></Form.Control>
                         </Form>
                     </span>
-                    <Link className="cartButton">Cart</Link>
-                    <span className="loginButton">
-                    <Link to='/login' className="loginLink">
-                            <Button>
-                                Register/Log In
-                            </Button>
-                    </Link>
-                    </span>
+                    <Button href="#" className="cartButton" variant="info">My Cart</Button>
+                    <Button href="/register" className="registerButton">Register</Button>
+                    <Button href="/login" className="loginButton">Log In</Button>
                 </Row>
             </div>
         )

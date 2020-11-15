@@ -1,7 +1,7 @@
 from flask import request, jsonify, Blueprint
 from flask.views import MethodView
 from my_app import db, app
-from my_app.user.models import User
+from my_app.user.models import Buyer, Seller, User
 
 user_blueprint = Blueprint('user', __name__)
 
@@ -32,6 +32,14 @@ class UserView(MethodView):
             new_user = User(name, username, password, is_buyer, address, is_seller)
             db.session.add(new_user)
             db.session.commit()
+            if is_buyer == True:
+                new_buyer = Buyer(new_user.id, address)
+                db.session.add(new_buyer)
+                db.session.commit()
+            if is_seller == True:
+                new_seller = Seller(new_user.id)
+                db.session.add(new_seller)
+                db.session.commit()
             return jsonify({
                 'user_id': new_user.id,
                 'name': new_user.name,

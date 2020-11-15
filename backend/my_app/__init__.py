@@ -15,6 +15,7 @@ db = SQLAlchemy(app)
 from my_app.user.models import User
 from my_app.item.models import Item
 from my_app.cart.models import Cart
+from my_app.order.models import Order
 
 db.create_all()
 
@@ -46,3 +47,5 @@ from my_app.item.views import rating_blueprint
 app.register_blueprint(rating_blueprint)
 from my_app.cart.views import cart_blueprint 
 app.register_blueprint(cart_blueprint)
+from my_app.order.views import order_blueprint
+app.register_blueprint(order_blueprint)

@@ -6,7 +6,7 @@ def _get_date():
     
 class Order(db.Model):
     # __tablename__ = 'order'
-
+    id = db.Column(db.Integer, primary_key=True)
     item_id = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     item_name = db.Column(db.String(200))

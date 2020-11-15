@@ -6,7 +6,6 @@ from my_app.user.models import Buyer, Seller, User
 user_blueprint = Blueprint('user', __name__)
 
 class UserView(MethodView):
-
     def get(self, user_id):
 
         user = User.query.filter_by(id=user_id).first()
@@ -73,3 +72,22 @@ app.add_url_rule(
 app.add_url_rule(
     '/deleteuser/<int:id>', view_func=User_view, methods=['DELETE']
 )
+
+@app.route('/login/<username>/<password>')
+def login(username, password):
+    print("login attempted with username, and password as:", username, password)
+    user = User.query.filter_by(username= username, password=password).all()
+    print(user)
+    if len(user) == 0:
+        return jsonify({
+            "result": False
+        })
+    else:
+        user = user[0]
+        print(user)
+        return jsonify({
+            "user_id": user.id,
+            "name": user.name
+        })
+    # result
+    # return jsonify(result)

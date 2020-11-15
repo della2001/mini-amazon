@@ -62,7 +62,26 @@ app.add_url_rule(
     '/item/delete/<int:id>', view_func=Item_view, methods=['DELETE']
 )
 
+@app.route('/items/all')
+def get_all_items():
+    print("getting all the items")
+    items = Item.query.all()
+    result = []
+    for item in items:
+        result.append(
+            {
+                "item_id": item.id, 
+                "url": item.url, 
+                "name": item.name, 
+                "price": item.price,
+                "category": item.category, 
+                "image": item.image, 
+                "description": item.description, 
+                "brand": item.brand
+            }
+        )
 
+    return jsonify(result)
 
 rating_blueprint = Blueprint('rating', __name__)
 
@@ -88,12 +107,26 @@ app.add_url_rule(
 )
 
 
-@app.route('/search/<item_name>')
-def search_by_name(self, item_name):
-    print("searching for item")
+@app.route('/search/<string:item_name>')
+def search_by_name(item_name):
+    print("searching for item with item_name:", item_name)
     # TODO write logic here
-    items = Item.query.filter(Item.name.like(item_name)).all()
-    return jsonify(
-        items
-    )
+    search = "%{}%".format(item_name)
+    items = Item.query.filter(Item.name.like(search)).all()
+    result = []
+    for item in items:
+        result.append(
+            {
+                "item_id": item.id, 
+                "url": item.url, 
+                "name": item.name, 
+                "price": item.price,
+                "category": item.category, 
+                "image": item.image, 
+                "description": item.description, 
+                "brand": item.brand
+            }
+        )
+    return jsonify(result)
+
     

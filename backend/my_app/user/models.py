@@ -12,7 +12,7 @@ class User(db.Model):
 
 
     def __init__(self, name, username, password, is_buyer, address, is_seller):
-        self.id = 4
+        # self.id = 4
         self.name = name
         self.username = username
         self.password = password

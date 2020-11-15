@@ -25,14 +25,13 @@ class App extends Component {
     }
   }
 
-  componentDidMount() {
-    fetch("/item/", {
-      method: "POST"})
+  /*componentDidMount() {
+    fetch('/items/all')
       .then(response => response.json())
-      .then((response) => { this.setState({ test: response }) }); 
-      console.log("FETCHED ITEMS");
-      console.log(this.state.test);
-  }
+      .then(data => this.setState({ test: data }));
+    console.log('fetched items');
+    console.log(this.state.test);
+  }*/
   
 
 
@@ -132,9 +131,7 @@ class App extends Component {
             }} />
             <Route component={Error} />
           </Switch>
-          <div>
-            <Cart cartItems = {this.state.cartItems}/>
-          </div>
+          
         </div>
       </Router>
     );

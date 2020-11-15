@@ -10,7 +10,19 @@ class OrderView(MethodView):
 
     def get(self, user_id):
         order_history = Order.query.filter_by(id=user_id).all()
-        return jsonify(order_history)
+        result = []
+        for order in order_history:
+            result.append(
+            {
+                "item_id": order.item_id,
+                "user_id": order.user_id, 
+                "item_name": order.item_name, 
+                "item_price": order.item_price,
+                "count": order.count, 
+                "order_time": order.order_time
+            }
+        )
+        return jsonify(result)
 
     def post(self):
         

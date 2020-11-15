@@ -22,6 +22,7 @@ db.create_all()
 # Some scripts for adding initial data
 from my_app.item.models import Item
 import csv
+# with open('small_data.csv', newline='') as csvfile:
 with open('amazon_data.csv', newline='') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:

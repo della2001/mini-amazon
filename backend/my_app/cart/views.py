@@ -7,8 +7,24 @@ cart_blueprint = Blueprint('cart', __name__)
 
 class CartView(MethodView):
     def get(self, user_id):
+<<<<<<< HEAD
         cart = Cart.query.filter_by(user_id=user_id).all() # this will get all the items in the cart for userA 
         return jsonify(cart)
+=======
+        items = Cart.query.filter_by(user_id=user_id).all() # this will get all the items in the cart for userA 
+        result = []
+        for item in items:
+            result.append(
+            {
+                "id": item.id, 
+                "item_id": item.item_id, 
+                "user_id": item.user_id, 
+                "count": item.count
+            }
+        )
+
+        return jsonify(result)
+>>>>>>> 6d6e7f864466f23ba6be96684316bccd58777038
    
     def post(self):
         item_id= request.json['item_id']

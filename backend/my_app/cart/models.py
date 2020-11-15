@@ -2,6 +2,10 @@ from my_app import db
 
 class Cart(db.Model):
     # __tablename__ = 'Cart'
+<<<<<<< HEAD
+=======
+    id = db.Column(db.Integer, primary_key=True)
+>>>>>>> 6d6e7f864466f23ba6be96684316bccd58777038
     item_id = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     count = db.Column(db.String(100))

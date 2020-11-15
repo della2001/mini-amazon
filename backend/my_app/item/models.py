@@ -1,24 +1,28 @@
 from my_app import db
 
 class Item(db.Model):
-    __tablename__ = 'Item'
+    # __tablename__ = 'Item'
     id = db.Column(db.Integer, primary_key=True)
-    url = db.Column(db.String(100))
-    name = db.Column(db.String(50))
+    url = db.Column(db.String(300))
+    name = db.Column(db.String(200))
     price = db.Column(db.Float)
-    category = db.Column(db.Integer)
-    image = db.Column(db.String(100))
-    description = db.Column(db.String(10))
-    rating = db.relationship("Rating")
+    category = db.Column(db.String(50))
+    image = db.Column(db.String(200))
+    description = db.Column(db.Text)
+    brand = db.Column(db.String(100))
+    rating = db.relationship("Rating", backref='item', lazy=True)
+    item_id  = db.relationship("Cart", backref='item', lazy=True)
+    item_id  = db.relationship("Order", backref='item', lazy=True)
 
 
-    def __init__(self, url, name, price, category, image, description):
+    def __init__(self, url, name, price, category, image, description, brand):
         self.url = url
         self.name = name
         self.price = price
         self.category = category; 
         self.image = image;
         self.description = description
+        self.brand = brand
 
     def save(self):
         db.session.add(self)
@@ -30,10 +34,11 @@ class Item(db.Model):
 
 
 class Rating(db.Model):
-    __tablename__ = 'Rating'
+    # __tablename__ = 'Rating'
     id = db.Column(db.Integer, primary_key=True)
-    item_id = db.Column(db.Integer, db.ForeignKey('Item.id'))
-    user_id = db.Column(db.Integer, db.ForeignKey('User.id'))
+    item_id = db.Column(db.Integer, db.ForeignKey('item.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    # rating should be any number between 1 to 5
     rating = db.Column(db.Integer)
 
     def __init__(self, item_id, user_id, rating):

@@ -1,21 +1,11 @@
-import pdb
-
 from flask import request, jsonify, Blueprint
 from flask.views import MethodView
 from my_app import db, app
-from my_app.user.models import User
+from my_app.user.models import Buyer, Seller, User
 
 user_blueprint = Blueprint('user', __name__)
 
-
-@user_blueprint.route('/')
-@user_blueprint.route('/home')
-def home():
-    return "Welcome to the library Home."
-
-
 class UserView(MethodView):
-
     def get(self, user_id):
 
         user = User.query.filter_by(id=user_id).first()
@@ -41,6 +31,14 @@ class UserView(MethodView):
             new_user = User(name, username, password, is_buyer, address, is_seller)
             db.session.add(new_user)
             db.session.commit()
+            if is_buyer == True:
+                new_buyer = Buyer(new_user.id, address)
+                db.session.add(new_buyer)
+                db.session.commit()
+            if is_seller == True:
+                new_seller = Seller(new_user.id)
+                db.session.add(new_seller)
+                db.session.commit()
             return jsonify({
                 'user_id': new_user.id,
                 'name': new_user.name,
@@ -74,3 +72,22 @@ app.add_url_rule(
 app.add_url_rule(
     '/deleteuser/<int:id>', view_func=User_view, methods=['DELETE']
 )
+
+@app.route('/login/<username>/<password>')
+def login(username, password):
+    print("login attempted with username, and password as:", username, password)
+    user = User.query.filter_by(username= username, password=password).all()
+    print(user)
+    if len(user) == 0:
+        return jsonify({
+            "result": False
+        })
+    else:
+        user = user[0]
+        print(user)
+        return jsonify({
+            "user_id": user.id,
+            "name": user.name
+        })
+    # result
+    # return jsonify(result)

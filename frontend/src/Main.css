@@ -7,13 +7,16 @@
 }
 .searchBar {
     margin-top: 25px;
+    margin-right: 10px;
     float: left;
     width: 500px;
 }
-.loginButton, .cartButton {
-    margin-top: 25px;
-    margin-left: 50px;
+
+.cartButton, .registerButton, .loginButton{
+    max-height: 40px;
+    margin: 25px 10px 10px 10px;
 }
+
 
 .productGrid {
     margin: auto;
@@ -32,11 +35,15 @@
     max-height: 150px;
 }
 
-.loginForm {
-    margin: auto;
-    max-width: 500px;
+.Register input{
+    align-content: left;
+    margin: 10px;
 }
 
+.Login input{
+    align-content: left;
+    margin: 10px;
+}
 
 .title {
     float: left;

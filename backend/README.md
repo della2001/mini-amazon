@@ -1,5 +1,6 @@
 # Basic outline
 
+- Louis - 
 This is the backend server for mini-amazon.
 I'm using mysql for db and flask for web app.
 So you should have mysql installed on your machine to run this app.
@@ -12,8 +13,8 @@ All the dependencies are in the requirements.txt so please take a look
 
 # Checklist
 
-[ ] user
-[ ] item
+[X] user
+[X] item
 
 <!-- add more as neccessary -->
 
@@ -41,4 +42,18 @@ to start the server
 
 ```
 $ mysql -uroot
+```
+
+# How to start the virtualenv
+
+1. make virtualenv 
+
+```
+python3 -m venv <name-of-env>
+```
+
+2. run the virtualenv
+
+```
+source <name-of-env>/bin/activate
 ```

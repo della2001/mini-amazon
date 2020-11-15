@@ -7,6 +7,7 @@ import Home from './components/Home';
 import ProductDetails from './components/ProductDetails';
 import Header from './components/Header'
 import Login from './components/Login'
+import Register from './components/Register'
 import data from './data/items.json';
 import Filter from './components/Filter';
 import Cart from './components/Cart'
@@ -16,12 +17,23 @@ class App extends Component {
     super(props);
     this.state = {
       cards: data,
+      test: [],
       cartItems: [],
       search: "",
       category: "",
       sort: ""
     }
   }
+
+  /*componentDidMount() {
+    fetch('/items/all')
+      .then(response => response.json())
+      .then(data => this.setState({ test: data }));
+    console.log('fetched items');
+    console.log(this.state.test);
+  }*/
+  
+
 
   addToCart = (product) => {
     const cartItems = this.state.cartItems.slice();
@@ -103,6 +115,9 @@ class App extends Component {
             <Route exact path="/" render={(props) => (
               <Home cards={this.state.cards}/>
             )} />
+            <Route exact path="/register" render={(props) => (
+              <Register/>
+            )} />
             <Route exact path="/login" render={(props) => (
               <Login/>
             )} />
@@ -116,9 +131,7 @@ class App extends Component {
             }} />
             <Route component={Error} />
           </Switch>
-          <div>
-            <Cart cartItems = {this.state.cartItems}/>
-          </div>
+          
         </div>
       </Router>
     );

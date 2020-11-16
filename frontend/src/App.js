@@ -60,14 +60,12 @@ class App extends Component {
     this.setState({cartItems})
   }
   searchProducts = (event) => {
-    console.log('hello')
-    console.log(event.target.value)
     if (event.target.value === "") {
-      this.setState({search: event.target.value, cards: data})
+      this.setState({search: event.target.value})
     } else {
       this.setState({
         search: event.target.value, 
-        cards: data.filter((product) => product.name.toLowerCase().indexOf(event.target.value.toLowerCase()) >= 0)
+        cards: this.state.cards.filter((product) => product.name.toLowerCase().indexOf(event.target.value.toLowerCase()) >= 0)
       })
     }
   }

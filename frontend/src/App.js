@@ -1,6 +1,6 @@
 import React, { Component, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-
+import {get_small_items} from './components/api.js'
 import './App.css';
 import Error from './components/Error';
 import Home from './components/Home';
@@ -16,13 +16,23 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      cards: data,
+      cards: [],
       test: [],
       cartItems: [],
       search: "",
       category: "",
       sort: ""
     }
+  }
+  componentDidMount() {
+    fetch('/items/small')
+    .then(res => res.json())
+    .then(items=> {
+      console.log(items);
+      this.setState({cards: items})
+      return data; 
+    })
+    .catch(console.log)
   }
 
   /*componentDidMount() {

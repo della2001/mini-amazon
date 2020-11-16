@@ -1,23 +1,12 @@
-const isDev = false;
-function getAllItesms() {
-    const url = "http://localhost:5000/registration";
-    const allitemsurl = "http://localhost:5000/items"; 
-
-
-    return fetch(allitemsurl).then(response => {
-        return response.json(); 
-    });
+export async function get_small_items() {
+    const url = "/items/small"; 
+    const data = await fetch(url, {
+        method: 'GET', // *GET, POST, PUT, DELETE, etc.
+        mode: 'no-cors', // no-cors, *cors, same-origin
+        headers: {
+            "Content-Type": "application/json"
+          },
+    }); 
+    const items = data.json();
+    return items;
 }
-
-function getFakeData(){
-    return new Promise((resolve, reject) => {
-        resolve({
-            quote: "Chase Your Dreams",
-            max: 100,
-            min: 0,
-            count: 50,
-        });
-    })
-}
-
-export default isDev ? getFakeData : getRealData;

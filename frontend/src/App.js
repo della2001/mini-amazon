@@ -21,7 +21,10 @@ class App extends Component {
       cartItems: [],
       search: "",
       category: "",
-      sort: ""
+      sort: "",
+      username: "",
+      id: null,
+      name:""
     }
   }
   componentDidMount() {
@@ -98,15 +101,9 @@ class App extends Component {
     }
   }
 
-  
-  /*
-  componentWillMount() {
-    this.setState({
-      cards: data,
-    })
-  }
-  */
+
   render() {
+    console.log(this.state);
     return (
       <Router>
         <div className="App">

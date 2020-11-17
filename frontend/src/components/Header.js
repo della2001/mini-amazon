@@ -11,8 +11,14 @@ import '../Main.css';
 import { Link, LinkButton } from 'react-router-dom';
 
 class Header extends Component {
-
+    constructor(props) {
+        super(props);
+        console.log(props);
+        this.state = props.search;
+        console.log(this.state)
+    } 
     render() {
+        // const isLoggedIn = this.state.isLoggedIn;
         return (
             <div className='Header'>
                 <Row>
@@ -25,11 +31,9 @@ class Header extends Component {
                     </span>
                     <Button href="#" className="cartButton" variant="info">My Cart</Button>
                     <Button href="/register" className="registerButton">Register</Button>
-                    <Button href="/login" className="loginButton">Log In</Button>
                 </Row>
             </div>
         )
     }   
 }
-
 export default Header;

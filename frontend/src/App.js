@@ -11,15 +11,24 @@ import Register from './components/Register'
 import data from './data/items.json';
 import Filter from './components/Filter';
 import Cart from './components/Cart'
+import Button from 'react-bootstrap/Button';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      user: {
+        id: -1,
+        name: "",
+        username: "", 
+        isLoggedIn: "",
+      }, 
+      header: {
+        search: "",
+      }, 
       cards: [],
       test: [],
       cartItems: [],
-      search: "",
       category: "",
       sort: "",
       username: "",
@@ -31,22 +40,22 @@ class App extends Component {
     fetch('/items/small')
     .then(res => res.json())
     .then(items=> {
-      console.log(items);
       this.setState({cards: items})
       return data; 
     })
     .catch(console.log)
   }
 
-  /*componentDidMount() {
-    fetch('/items/all')
-      .then(response => response.json())
-      .then(data => this.setState({ test: data }));
-    console.log('fetched items');
-    console.log(this.state.test);
-  }*/
-  
-
+  handleUserData = (userData) => {
+    if (userData.user_id != undefined){
+      this.setState({user: {
+        id: userData.user_id, 
+        name: userData.name, 
+        username: userData.username, 
+        isLoggedIn: true
+      }});
+    }
+  }
 
   addToCart = (product) => {
     const cartItems = this.state.cartItems.slice();
@@ -103,28 +112,36 @@ class App extends Component {
 
 
   render() {
-    console.log(this.state);
+    let button;
+    if(this.state.user.isLoggedIn) {
+        button =  <Button href="/logout" className="loginButton">LogOut</Button>
+    }else{
+        button = <Button href="/login" className="loginButton">Log In</Button>
+    }
     return (
       <Router>
         <div className="App">
-          <Header search={this.state.search}
+          <Header search={this.state.header}
           searchProducts = {this.searchProducts}/>
+          {button}
           <Filter count={this.state.cards.length}
           category={this.state.category}
           sort={this.state.sort}
           filterProducts = {this.filterProducts}
           sortProducts = {this.sortProducts}
           />
-
           <Switch>
-            <Route exact path="/" render={(props) => (
+            <Route exact path="/" render={(props) => {
+              console.log(props);
+              return (
               <Home cards={this.state.cards}/>
-            )} />
+              );
+            }}/>
             <Route exact path="/register" render={(props) => (
               <Register/>
             )} />
             <Route exact path="/login" render={(props) => (
-              <Login/>
+              <Login onLogin={this.handleUserData}/>
             )} />
             <Route exact path="/product/:id" render={(props) => {
               let cardPosition = props.location.pathname.replace('/product/', '');
@@ -135,8 +152,7 @@ class App extends Component {
               );
             }} />
             <Route component={Error} />
-          </Switch>
-          
+          </Switch>   
         </div>
       </Router>
     );

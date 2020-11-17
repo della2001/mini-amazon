@@ -55,6 +55,7 @@ Item_view = ItemView.as_view('item_view')
 app.add_url_rule(
     '/item/', view_func=Item_view, methods=['POST']
 )
+# @TODO - error upon request
 app.add_url_rule(
     '/item/<int:id>', view_func=Item_view, methods=['GET']
 )

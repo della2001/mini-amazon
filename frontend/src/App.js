@@ -2,6 +2,7 @@ import React, { Component, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import {get_small_items} from './components/api.js'
 import './App.css';
+import api from './api'
 import Error from './components/Error';
 import Home from './components/Home';
 import ProductDetails from './components/ProductDetails';
@@ -11,24 +12,15 @@ import Register from './components/Register'
 import data from './data/items.json';
 import Filter from './components/Filter';
 import Cart from './components/Cart'
-import Button from 'react-bootstrap/Button';
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {
-        id: -1,
-        name: "",
-        username: "", 
-        isLoggedIn: "",
-      }, 
-      header: {
-        search: "",
-      }, 
       cards: [],
       test: [],
       cartItems: [],
+      search: "",
       category: "",
       sort: "",
       username: "",
@@ -36,27 +28,23 @@ class App extends Component {
       name:""
     }
   }
+
   componentDidMount() {
-    fetch('/items/small')
-    .then(res => res.json())
-    .then(items=> {
-      this.setState({cards: items})
-      return data; 
-    })
-    .catch(console.log)
+    api.get('/items/small')
+      .then(res=> {
+        this.setState({cards: res.data})
+      })
+      .catch(console.error)
   }
 
-  handleUserData = (userData) => {
-    if (userData.user_id != undefined){
-      this.setState({user: {
-        id: userData.user_id, 
-        name: userData.name, 
-        username: userData.username, 
-        isLoggedIn: true
-      }});
-    }
-  }
-
+  /*componentDidMount() {
+    fetch('/items/all')
+      .then(response => response.json())
+      .then(data => this.setState({ test: data }));
+    console.log('fetched items');
+    console.log(this.state.test);
+  }*/
+  
   addToCart = (product) => {
     const cartItems = this.state.cartItems.slice();
     let alreadyInCart = false;
@@ -71,6 +59,7 @@ class App extends Component {
     }
     this.setState({cartItems})
   }
+
   searchProducts = (event) => {
     if (event.target.value === "") {
       this.setState({search: event.target.value})
@@ -112,36 +101,28 @@ class App extends Component {
 
 
   render() {
-    let button;
-    if(this.state.user.isLoggedIn) {
-        button =  <Button href="/logout" className="loginButton">LogOut</Button>
-    }else{
-        button = <Button href="/login" className="loginButton">Log In</Button>
-    }
+    // console.log(this.state);
     return (
       <Router>
         <div className="App">
-          <Header search={this.state.header}
+          <Header search={this.state.search}
           searchProducts = {this.searchProducts}/>
-          {button}
           <Filter count={this.state.cards.length}
           category={this.state.category}
           sort={this.state.sort}
           filterProducts = {this.filterProducts}
           sortProducts = {this.sortProducts}
           />
+
           <Switch>
-            <Route exact path="/" render={(props) => {
-              console.log(props);
-              return (
-              <Home cards={this.state.cards}/>
-              );
-            }}/>
+            <Route exact path="/" render={(props) => (
+              <Home items={this.state.cards}/>
+            )} />
             <Route exact path="/register" render={(props) => (
               <Register/>
             )} />
             <Route exact path="/login" render={(props) => (
-              <Login onLogin={this.handleUserData}/>
+              <Login/>
             )} />
             <Route exact path="/product/:id" render={(props) => {
               let cardPosition = props.location.pathname.replace('/product/', '');
@@ -151,12 +132,14 @@ class App extends Component {
                 />
               );
             }} />
+            <Route exact path="/cart" component={Cart} />
             <Route component={Error} />
-          </Switch>   
+          </Switch>
+          
         </div>
       </Router>
-    );
+    )
   }
 }
 
-export default App;
+export default App

@@ -10,3 +10,4 @@ export async function get_small_items() {
     const items = data.json();
     return items;
 }
+

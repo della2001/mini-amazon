@@ -40,12 +40,8 @@ class Login extends Component {
         this.saveUserData(data);
         return data;
     })
-      //.then(() => setTimeout(() => this.setState({ logged: true }), 5000))
-      .catch(function(error) {
-        console.log(error);
-      });
-    
-    
+    localStorage.setItem("username", this.state.username)
+    localStorage.setItem("password", this.state.password)
     event.preventDefault();
   }
 

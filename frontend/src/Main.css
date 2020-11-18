@@ -12,11 +12,23 @@
     width: 500px;
 }
 
-.cartButton, .registerButton, .loginButton{
+.cartButton, .registerButton{
     max-height: 40px;
     margin: 25px 10px 10px 10px;
 }
 
+.loginButton {
+    float: right;
+    margin-right: 265px;
+    margin-top: 20px;
+    max-height: 40px;
+}
+.profileButton {
+    margin-top: 20px;
+    max-height: 40px;
+    margin-right: 20px;
+    float: right;
+}
 
 .productGrid {
     margin: auto;
@@ -54,10 +66,9 @@
 }
 
 .filter {
+    margin-left: 150px;
     display: flex;
-    justify-content: space-between;
-    padding: 1rem;
-    margin: 1rem;
+    padding: 25px;
 }
 
 .filter div {

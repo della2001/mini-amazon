@@ -1,52 +1,49 @@
-import { Link } from 'react-router-dom';
-import './Card.css';
-import React, { Component } from 'react'
+import React from 'react'
+import { Link } from 'react-router-dom'
+import api from '../api'
+import './Card.css'
 
-export default class Card extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      product: null,
-    };
+const Card = ({ item }) => {
+
+  const addToCart = item_id => {
+    api.post('cart', {
+        item_id,
+        user_id: 1,
+        count: 1
+      })
+      .then(res => console.log(res.data))
   }
-  render() {
-    const { product } = this.state;
-    return (
-      <div className="card">
-          <div className="front">
-          <Link to={`/product/${this.props.card.id}`}><img src={this.props.card.image} className="card-image" /></Link>
-            <div className="container">
-              <h3><Link to={`/product/${this.props.card.id}`}><span className="cardtitle">{this.props.card.name}</span></Link></h3>
-              <h3><span className="price"> ${this.props.card.price}</span></h3> 
-              <br></br>
+
+  return (
+    <div className='card'>
+        <div className='front'>
+        <Link to={`/product/${item.item_id}`}>
+          <img src={item.image} className='card-image' />
+        </Link>
+          <div className='container'>
+            <h3>
+              <Link to={`/product/${item.item_id}`}>
+                <span className='cardtitle'>{item.name}</span>
+              </Link>
+            </h3>
+            <h3>
+              <span className='price'> ${item.price}</span>
+            </h3> 
+            <br></br>
+            {item.count ? (
+              <span>Unit in cart: {item.count}</span>
+            ) : (
               <button
-                  onClick={() => this.props.addToCart(product)}
-                  className="button primary"
-                  >
-                  Add To Cart
+                onClick={() => addToCart(item.item_id)}
+                className='button primary'
+              >
+                Add To Cart
               </button>
-            </div>
+            )}
           </div>
-      </div>
-    )
-  }
-}
-/*
-const Card = (props) =>  (
-  <div className="card">
-    <Link to={`/product/${props.card.id}`}>
-      <div className="front">
-        <img src={props.card.imgUrl} className="card-image" />
-        <div className="container">
-          <h3>{props.card.name}</h3>
-          <h3><span className="price"> ${props.card.price}</span></h3> 
-          <p>{props.card.description}</p>
-          <button onClick={() => this.props.addToCart(props.card)} className="btn-primary">Add to Cart</button>
         </div>
-      </div>
-    </Link>
-  </div>
-);
+    </div>
+  )
+}
 
-export default Card;
-*/
+export default Card

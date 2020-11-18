@@ -9,11 +9,12 @@ export default class Filter extends Component {
             <div className="filter">
                 <div>
                     <ButtonGroup onClick={this.props.filterProducts}>
+                        <Button variant="link" value="">All</Button>
                         <Button variant="link" value="Clothing">Clothing</Button>
                         <Button variant="link" value="Footwear">Footwear</Button>
                         <Button variant="link" value="Furniture">Furniture</Button>
                         <Button variant="link" value="Stationery">Stationery</Button>
-                        <Button variant="link" value="Pet Supplies">Pet Supplies</Button>
+                        <Button variant="link" value="Pet Supplies">Pet</Button>
                     </ButtonGroup>
                 </div>
                 {/*

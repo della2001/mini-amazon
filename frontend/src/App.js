@@ -12,6 +12,9 @@ import data from './data/items.json';
 import Filter from './components/Filter';
 import Cart from './components/Cart'
 import Button from 'react-bootstrap/Button';
+import api from './api';
+import Logout from './components/Logout'
+import User from './components/User'
 
 class App extends Component {
   constructor(props) {
@@ -37,10 +40,11 @@ class App extends Component {
     }
   }
   componentDidMount() {
+    this.checkLogin();
     fetch('/items/small')
     .then(res => res.json())
     .then(items=> {
-      this.setState({cards: items})
+      this.setState({cards: items, test: items})
       return data; 
     })
     .catch(console.log)
@@ -54,6 +58,9 @@ class App extends Component {
         username: userData.username, 
         isLoggedIn: true
       }});
+      localStorage.setItem("uid", userData.user_id)
+      localStorage.setItem("name", userData.name)
+      localStorage.setItem("isLoggedIn", true)
     }
   }
 
@@ -99,22 +106,34 @@ class App extends Component {
 
   filterProducts = (event) => {
     if (event.target.value === "") {
-      this.setState({category: event.target.value, cards: data})
+      this.setState({cards: this.state.test})
     } else {
-      console.log('FILTER');
-      console.log(data.filter((product) => product.category.indexOf(event.target.value) >= 0));
+      //console.log('FILTERED');
       this.setState({
         category: event.target.value, 
-        cards: data.filter((product) => product.category.indexOf(event.target.value) >= 0)
+        cards: this.state.test.filter((product) => product.category.indexOf(event.target.value) >= 0)
       })
     }
   }
 
+  checkLogin() {
+    if (localStorage.getItem('uid')) {
+      this.setState({
+        user: {
+          id: localStorage.getItem('uid'),
+          username: localStorage.getItem('username'),
+          name: localStorage.getItem('name'),
+          isLoggedIn: true
+        }
+      })
+    }
+  }
 
   render() {
+    console.log(this.state);
     let button;
     if(this.state.user.isLoggedIn) {
-        button =  <Button href="/logout" className="loginButton">LogOut</Button>
+        button =  <Button href="/logout" className="loginButton">Log Out</Button>
     }else{
         button = <Button href="/login" className="loginButton">Log In</Button>
     }
@@ -124,33 +143,59 @@ class App extends Component {
           <Header search={this.state.header}
           searchProducts = {this.searchProducts}/>
           {button}
+          {this.state.user.isLoggedIn &&
+          <Button href="/user" className="profileButton">My Profile</Button>
+        }
           <Filter count={this.state.cards.length}
           category={this.state.category}
           sort={this.state.sort}
           filterProducts = {this.filterProducts}
           sortProducts = {this.sortProducts}
           />
+          <h3>Welcome{this.state.user.isLoggedIn &&
+          <span>, {this.state.user.name}</span>
+        }!</h3>
+        <Route exact path="/user" render={(props) => {
+              console.log(this.state.user.id);
+              console.log(props);
+              return (
+                <User
+                  uid={this.state.user.id}
+                />
+              );
+            }} />
+          
           <Switch>
             <Route exact path="/" render={(props) => {
               console.log(props);
               return (
-              <Home cards={this.state.cards}/>
+              <Home items={this.state.cards}/>
               );
             }}/>
             <Route exact path="/register" render={(props) => (
               <Register/>
             )} />
+            
             <Route exact path="/login" render={(props) => (
               <Login onLogin={this.handleUserData}/>
             )} />
-            <Route exact path="/product/:id" render={(props) => {
+            <Route exact path="/logout" render={(props) => {
+              localStorage.clear();
+              return (
+              <Logout/>
+            )}} />
+            <Route exact path="/product/:item_id" render={(props) => {
+              console.log(this.state.cards);
+              console.log(props);
               let cardPosition = props.location.pathname.replace('/product/', '');
               return (
                 <ProductDetails
-                  card={this.state.cards.find(o => o.id === parseInt(cardPosition))}
+                  card={this.state.cards.find(o => o.item_id === parseInt(cardPosition))}
                 />
               );
             }} />
+            <Route exact path="/cart" component={Cart} />
+            
             <Route component={Error} />
           </Switch>   
         </div>

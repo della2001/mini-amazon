@@ -1,36 +1,24 @@
-import Card from './Card';
-import React, { Component } from 'react';
-import ButtonGroup from 'react-bootstrap/ButtonGroup';
-import Button from 'react-bootstrap/Button';
-import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import {BrowserRouter as Router, Switch, Route, Link, useParams} from "react-router-dom";
 
-const Home = (props) => {
+import React from 'react'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Card from './Card'
+
+const Home = ({ items }) => {
   return (
     <div>
-                
-                <br></br>
-                <div>
-                    <Container>
-                        <Row>
-                        {
-                          props.cards.map((card) => (
-                              <Card 
-                              key={card.id} 
-                              card={card} 
-                              addToCart={card}
-                              />
-                          ))
-                          }
-                        </Row>
-                    </Container>
-                
-            </div>
+      <br></br>
+      <div>
+        <Container>
+          <Row>
+            {items.map((item) => (
+              <Card key={item.item_id} item={item}/>
+            ))}
+          </Row>
+        </Container>
+      </div>
     </div>
-
-  );
-};
+  )
+}
  
-export default Home;
+export default Home

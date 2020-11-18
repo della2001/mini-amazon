@@ -86,7 +86,7 @@ def get_all_items():
 @app.route('/items/small')
 def get_small_items():
     print("getting all the items")
-    items = Item.query.limit(20).all()
+    items = Item.query.limit(50).all()
     result = []
     for item in items:
         result.append(

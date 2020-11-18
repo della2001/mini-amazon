@@ -1,4 +1,7 @@
-const isDev = false;
+import axios from 'axios'
+
+export default axios.create({ baseUrl: 'http://localhost:5000' })
+/*const isDev = false;
 function getAllItesms() {
     const url = "http://localhost:5000/registration";
     const allitemsurl = "http://localhost:5000/items"; 
@@ -21,3 +24,4 @@ function getFakeData(){
 }
 
 export default isDev ? getFakeData : getRealData;
+*/

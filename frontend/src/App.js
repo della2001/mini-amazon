@@ -15,6 +15,9 @@ import Button from 'react-bootstrap/Button';
 import api from './api';
 import Logout from './components/Logout'
 import User from './components/User'
+import AddItem from './components/AddItem'
+import Checkout from './components/Checkout'
+import OrderComplete from './components/OrderComplete'
 
 class App extends Component {
   constructor(props) {
@@ -175,7 +178,15 @@ class App extends Component {
             <Route exact path="/register" render={(props) => (
               <Register/>
             )} />
-            
+            <Route exact path="/ordercomplete" render={(props) => (
+              <OrderComplete/>
+            )} />
+            <Route exact path="/checkout" render={(props) => (
+              <Checkout/> 
+            )} />
+            <Route exact path="/additem" render={(props) => (
+              <AddItem/>
+            )} />
             <Route exact path="/login" render={(props) => (
               <Login onLogin={this.handleUserData}/>
             )} />

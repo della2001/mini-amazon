@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link, Route } from 'react-router-dom';
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Card from './Card'
@@ -58,6 +59,7 @@ const Cart = () => {
   return (
     <div>
       <div className="cart cart-header">You have {items.length} items in the cart{" "}</div>
+
       <Container>
         <Row>
           {items.map(item => (
@@ -65,6 +67,10 @@ const Cart = () => {
           ))}
         </Row>
       </Container>
+      <div>
+        <p><Link to={{ pathname: '/checkout'}}>Check Out</Link></p>
+                </div>
+    
     </div>
   )
 }

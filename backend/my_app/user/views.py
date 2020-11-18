@@ -12,7 +12,8 @@ class UserView(MethodView):
         response = {
             'username': user.username,
             'password': user.password,
-            'name': user.name
+            'name': user.name,
+            'usertype': user.usertype
         }
         return jsonify(response)
 

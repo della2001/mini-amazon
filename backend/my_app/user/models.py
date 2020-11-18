@@ -6,6 +6,7 @@ class User(db.Model):
     name = db.Column(db.String(50))
     username = db.Column(db.String(10))
     password = db.Column(db.String(10))
+    usertype = db.Column(db.String(10))
     rating = db.relationship("Rating", backref='user', lazy=True)
     user_id = db.relationship("Cart", backref='user', lazy=True)
     user_id = db.relationship("Order", backref='user', lazy=True)
@@ -16,10 +17,12 @@ class User(db.Model):
         self.name = name
         self.username = username
         self.password = password
-        if is_buyer:
+        if is_buyer == True:
+            self.usertype = 'Buyer'
             print("reached here")
             Buyer(self.id, address)
-        if is_seller:
+        if is_seller == True:
+            self.usertype = 'Seller'
             print("reached here")
             Seller(self.id)
 

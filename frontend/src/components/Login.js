@@ -66,7 +66,7 @@ class Login extends Component {
             aboutProps:{
               name: {name}
             }
-          }}>here</Link>
+          }}> here </Link>
           to start shopping!</p></div>
         }
       </div>

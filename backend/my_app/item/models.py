@@ -19,8 +19,8 @@ class Item(db.Model):
         self.url = url
         self.name = name
         self.price = price
-        self.category = category; 
-        self.image = image;
+        self.category = category
+        self.image = image
         self.description = description
         self.brand = brand
 

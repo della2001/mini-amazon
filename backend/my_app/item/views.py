@@ -9,19 +9,20 @@ class ItemView(MethodView):
     def get(self, id):
         item = Item.query.filter_by(id=id).first()
         ratings = Rating.query.filter_by(item_id=id).all()
-        sum = 0;
+        sum = 0
         for rating in ratings:
             sum += rating
-        rating = sum/len(ratings)
+        rating = 0 if len(ratings) == 0 else sum/len(ratings)
 
         response = {
-            'item_id': item.item_id,
+            'item_id': id,
             'image': item.image,
             'name': item.name, 
             "price": item.price,
             "description": item.description,
             "rating": rating
         }
+
         return jsonify(response)
     def post(self):
         print("posting a item")
@@ -52,16 +53,82 @@ class ItemView(MethodView):
         
 Item_view = ItemView.as_view('item_view')
 
-app.add_url_rule(
-    '/item/', view_func=Item_view, methods=['POST']
-)
-# @TODO - error upon request
-app.add_url_rule(
-    '/item/<int:id>', view_func=Item_view, methods=['GET']
-)
-app.add_url_rule(
-    '/item/delete/<int:id>', view_func=Item_view, methods=['DELETE']
-)
+# app.add_url_rule(
+#     '/item/', view_func=Item_view, methods=['POST']
+# )
+@app.route('/items', methods=['POST'])
+def create_item():
+    # print("posting a item")
+    # print("request", request.json)
+    name = request.json['name']
+    image = request.json["image"]
+    url = request.json["url"]
+    price = request.json["price"]
+    description = request.json["description"]
+    category = request.json["category"]
+    brand = request.json["brand"]
+
+    new_item = Item(
+        url, name, price, category,
+        image, description, brand
+    )
+    
+    db.session.add(new_item)
+    db.session.commit()
+    
+    return jsonify({
+            'id': new_item.id
+        })
+
+# app.add_url_rule(
+#     '/item/<int:id>', view_func=Item_view, methods=['GET']
+# )
+@app.route('/items/<int:id>', methods=['GET'])
+def get_item(id):
+    item = Item.query.filter_by(id=id).first()
+    ratings = Rating.query.filter_by(item_id=id).all()
+    sum = 0
+    for rating in ratings:
+        sum += rating
+    rating = 0 if len(ratings) == 0 else sum/len(ratings)
+
+    response = {
+        'item_id': id,
+        'image': item.image,
+        'name': item.name, 
+        "price": item.price,
+        "description": item.description,
+        "rating": rating
+    }
+
+    return jsonify(response)
+
+# app.add_url_rule(
+#     '/item/delete/<int:id>', view_func=Item_view, methods=['DELETE']
+# )
+@app.route('/items/<int:id>', methods=['DELETE'])
+def delete_item(id):
+    item = Item.query.filter_by(id=id).first()
+    if item:
+        item.delete()
+        return jsonify({'msg': 'item deleted'})
+    else:
+        return jsonify({'msg': 'item not found'})
+    
+@app.route('/items/<int:id>/ratings', methods=['POST'])
+def create_item_rating(id):
+    print("posting a item")
+    print("request", request.json)
+
+    user_id = request.json['user_id']
+    item_id = request.json['item_id']
+    rating = request.json['rating']
+    
+    new_rating = Rating(user_id, item_id, rating)
+
+    return jsonify({
+        'result': True
+    })
 
 @app.route('/items/all')
 def get_all_items():
@@ -87,7 +154,7 @@ def get_all_items():
 @app.route('/items/small')
 def get_small_items():
     print("getting all the items")
-    items = Item.query.limit(20).all()
+    items = Item.query.limit(50).all()
     result = []
     for item in items:
         result.append(
@@ -106,28 +173,6 @@ def get_small_items():
     return jsonify(result)
 
 rating_blueprint = Blueprint('rating', __name__)
-
-class RatingView(MethodView):
-    def post(self):
-        print("posting a item")
-        print("request", request.json)
-
-        user_id = request.json['user_id']
-        item_id = request.json['item_id']
-        rating = request.json['rating']
-        
-        new_rating = Rating(user_id, item_id, rating)
-
-        return jsonify({
-            'result': True
-        })
-
-Item_view = ItemView.as_view('rating_view')
-
-app.add_url_rule(
-    '/rating/', view_func=Item_view, methods=['POST']
-)
-
 
 @app.route('/search/<string:item_name>')
 def search_by_name(item_name):
@@ -150,5 +195,3 @@ def search_by_name(item_name):
             }
         )
     return jsonify(result)
-
-    

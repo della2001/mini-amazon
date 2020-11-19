@@ -17,26 +17,25 @@ class Register extends Component {
   }
 
   handleSubmit = (event) => {
-    console.log(JSON.stringify(this.state));
+    event.preventDefault()
+    // console.log(JSON.stringify(this.state))
     fetch('/registration/', {
-        method: "POST",
+        method: 'POST',
         headers: {
-            "Content-Type": "application/json"
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify(this.state)
-        }
-    ).then(function(response) {
-        console.log(response);
-        return response.json();
       })
-      .then(data =>  {this.setState({
-        name: data.name, 
-        id: data.user_id, 
-        submitted: true
-      })});
-    event.preventDefault();
-
-}
+      .then(res => res.json())
+      .then(data => {
+        localStorage.setItem('uid', data.user_id)
+        this.setState({
+          name: data.name, 
+          id: data.user_id, 
+          submitted: true
+        })
+      })
+  }
 
 
 
@@ -46,17 +45,17 @@ class Register extends Component {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-            <input type="text" value={name} name='name' onChange={this.handleChange} placeholder="Name"/><br></br>
-            <input type="text" value={username} name='username' onChange={this.handleChange} placeholder="Username"/><br></br>
-            <input type="text" value={password} name='password' onChange={this.handleChange} placeholder="Password"/><br></br>
-            <input type="text" value={address} name='address' onChange={this.handleChange} placeholder="Address"/><br></br>
-            <label htmlFor="is_buyer">Buyer</label><input type="checkbox" checked={this.state.is_buyer} name = "is_buyer" onChange={this.handleChange}/><br></br>
-            <label htmlFor="is_seller">Seller</label><input type="checkbox" checked={this.state.is_seller} name = "is_seller" onChange={this.handleChange}/><br></br>
-            <input type="submit" value="Submit" />
+            <input type='text' value={name} name='name' onChange={this.handleChange} placeholder='Name'/><br></br>
+            <input type='text' value={username} name='username' onChange={this.handleChange} placeholder='Username'/><br></br>
+            <input type='text' value={password} name='password' onChange={this.handleChange} placeholder='Password'/><br></br>
+            <input type='text' value={address} name='address' onChange={this.handleChange} placeholder='Address'/><br></br>
+            <label htmlFor='is_buyer'>Buyer</label><input type='checkbox' checked={this.state.is_buyer} name = 'is_buyer' onChange={this.handleChange}/><br></br>
+            <label htmlFor='is_seller'>Seller</label><input type='checkbox' checked={this.state.is_seller} name = 'is_seller' onChange={this.handleChange}/><br></br>
+            <input type='submit' value='Submit' />
         </form>
         <br></br>
         {this.state.id !== undefined &&
-          <div>Registration successful! Welcome, {name}. Click <Link to="/">here</Link> to start browsing!</div>
+          <div>Registration successful! Welcome, {name}. Click <Link to='/'>here</Link> to start browsing!</div>
         }
       </div>
       
@@ -69,10 +68,10 @@ export default Register;
 function Register() {
   const { register, handleSubmit } = useForm();
   const onSubmit = data => {
-      fetch("/registration/", {
-          method: "POST",
+      fetch('/registration/', {
+          method: 'POST',
           headers: {
-              "Content-Type": "application/json"
+              'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
           });
@@ -81,36 +80,36 @@ function Register() {
     };
 
   return (
-    <div className="Register">
+    <div className='Register'>
       <h3>Create account</h3>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <input name="name" placeholder="Name" ref={register} />
+          <input name='name' placeholder='Name' ref={register} />
         </div>
 
         <div>
-          <input name="username" placeholder="Username" ref={register} />
+          <input name='username' placeholder='Username' ref={register} />
         </div>
 
         <div>
-          <input name="password" placeholder="Password" ref={register} />
+          <input name='password' placeholder='Password' ref={register} />
         </div>
 
         <div>
-          <input name="address" placeholder="Address" ref={register}/>
+          <input name='address' placeholder='Address' ref={register}/>
         </div>
 
         <div>
-          <label htmlFor="is_buyer">Buyer</label>
-          <input type="checkbox" name="is_buyer" placeholder="buyer" ref={register}/>
+          <label htmlFor='is_buyer'>Buyer</label>
+          <input type='checkbox' name='is_buyer' placeholder='buyer' ref={register}/>
         </div>
 
         <div>
-          <label htmlFor="is_seller">Seller</label>
-          <input type="checkbox" name="is_seller" placeholder="seller" ref={register}/>
+          <label htmlFor='is_seller'>Seller</label>
+          <input type='checkbox' name='is_seller' placeholder='seller' ref={register}/>
         </div>
 
-        <input type="submit" value="Register"/>
+        <input type='submit' value='Register'/>
       </form>
     </div>
   );

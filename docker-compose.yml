@@ -1,0 +1,36 @@
+version: "3.8"
+services:
+  db:
+    image: "mysql:5.7"
+    restart: always
+    ports:
+      - "5678:3306"
+    volumes:
+      - mysqld:/var/run/mysqld/
+      - ./db:/var/lib/mysql
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=1
+      - MYSQL_DATABASE=mini_amazon
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+  api:
+    build: ./backend
+    restart: always
+    environment:
+      - FLASK_APP=my_app/__init__.py
+      - FLASK_ENV=development
+    command: ["flask", "run", "-h", "0.0.0.0", "-p", "5679"]
+    tty: true
+    ports:
+      - "5679:5679"
+    volumes:
+      - mysqld:/var/run/mysqld/
+      - ./backend:/api
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  mysqld:

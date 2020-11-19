@@ -1,48 +1,47 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import api from '../api'
 import './Card.css'
 
-const Card = ({ item }) => {
-
-  const addToCart = item_id => {
-    api
-      .post('cart', {
-        item_id,
-        user_id: 1,
-        count: 1
-      })
-      .then(res => console.log(res.data))
+const addToCart = (e, item_id) => {
+  e.stopPropagation()
+  const user_id = localStorage.getItem('uid')
+  if (user_id) {
+    api.post('cart', {
+      item_id,
+      user_id,
+      count: 1
+    })
+  } else {
+    alert('Please log in or register first')
   }
+}
+
+const Card = ({ item }) => {
+  const history = useHistory()
 
   return (
-    <div className='card'>
-        <div className='front'>
-        <Link to={`/product/${item.item_id}`}>
-          <img src={item.image} className='card-image' />
-        </Link>
-          <div className='container'>
-            <h3>
-              <Link to={`/product/${item.item_id}`}>
-                <span className='cardtitle'>{item.name}</span>
-              </Link>
-            </h3>
-            <h3>
-              <span className='price'> ${item.price}</span>
-            </h3> 
-            <br></br>
-            {item.count ? (
-              <span>Unit in cart: {item.count}</span>
-            ) : (
-              <button
-                onClick={() => addToCart(item.item_id)}
-                className='button primary'
-              >
-                Add To Cart
-              </button>
-            )}
-          </div>
+    <div className='card' onClick={() => history.push(`/products/${item.item_id}`)}>
+      <div className='front'>
+        <img src={item.image} className='card-image' />
+        <div className='container'>
+            <a className='cardtitle'>{item.name}</a>
+          <h3>
+            <span className='price'> ${item.price}</span>
+          </h3> 
+          <br></br>
+          {item.count ? (
+            <span>Unit in cart: {item.count}</span>
+          ) : (
+            <button
+              onClick={e => addToCart(e, item.item_id)}
+              className='button primary'
+            >
+              Add To Cart
+            </button>
+          )}
         </div>
+      </div>
     </div>
   )
 }

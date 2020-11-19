@@ -1,7 +1,35 @@
-
-.Header {
-    margin-top: 50px;
+.App {
+    width: 1000px;
+    margin: 48px auto;
 }
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 32px;
+}
+
+.header > a {
+    margin: 0;
+}
+
+.homepage .filters {
+    display: flex;
+    justify-content: space-between;
+}
+
+.filters > form {
+    width: 500px;
+}
+
+.filters > div {
+    width: calc(100% - 500px);
+    display: flex;
+    justify-content: flex-end;
+    transform: translateY(6px);
+}
+
+
 .title {
     margin-right: 50px;
 }
@@ -17,6 +45,16 @@
     margin: 25px 10px 10px 10px;
 }
 
+.cart-table {
+    width: 900px;
+    margin: auto;
+    padding-top: 24px;
+    padding-bottom: 32px;
+}
+
+.cart-table img {
+    width: 50px;
+}
 
 .productGrid {
     margin: auto;
@@ -70,8 +108,10 @@
 }
 
 .productdetails {
+    margin-top: 32px;
     margin-left: 150px;
     margin-right: 100px;
+    padding-bottom: 64px;
 }
 
 .carousel {

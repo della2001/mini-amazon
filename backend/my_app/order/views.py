@@ -7,9 +7,8 @@ from my_app.item.models import Item
 order_blueprint = Blueprint('order', __name__)
 
 class OrderView(MethodView):
-
-    def get(self, user_id):
-        order_history = Order.query.filter_by(id=user_id).all()
+    def get(self, id):
+        order_history = Order.query.filter_by(id=id).all()
         result = []
         for order in order_history:
             result.append(

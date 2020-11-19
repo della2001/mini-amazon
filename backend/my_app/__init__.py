@@ -3,12 +3,13 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.sql.schema import Column, ForeignKey, MetaData, Table
 from sqlalchemy.types import Integer, String
 from sqlalchemy.engine import create_engine
+
 app = Flask(__name__)
-addr = 'mysql://root@localhost/mini_amazon'
-app.config['SQLALCHEMY_DATABASE_URI'] = addr
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# changed port to 5678 to avoid conflict
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root@localhost:5678/mini_amazon'
 # this config should be later changed
-# skip username and password etc, just use root cuz it's not productio lol
+# skip username and password etc, just use root cuz it's not production lol
 
 db = SQLAlchemy(app)
 
@@ -22,6 +23,10 @@ db.create_all()
 # Some scripts for adding initial data
 from my_app.item.models import Item
 import csv
+
+counter = 0
+max_items = 50
+
 # with open('small_data.csv', newline='') as csvfile:
 with open('amazon_data.csv', newline='') as csvfile:
     reader = csv.DictReader(csvfile)
@@ -39,6 +44,10 @@ with open('amazon_data.csv', newline='') as csvfile:
         db.session.add(new_item)
         db.session.commit()
         print("this is the added item name and number: ", name, new_item)
+
+        counter += 1
+        if counter == max_items:
+            break
 
 from my_app.user.views import user_blueprint    
 app.register_blueprint(user_blueprint)

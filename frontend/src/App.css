@@ -7,6 +7,15 @@
   pointer-events: none;
 }
 
+.ant-select-selection-item {
+  text-align: left;
+}
+
+.anticon {
+  transform: translateY(-3px);
+  margin-right: 3px;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

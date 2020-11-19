@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
 
 class Login extends Component {
   constructor(props) {
@@ -42,34 +43,27 @@ class Login extends Component {
     const { username, password, name } = this.state
 
     return (
-      <div>
+      <div className='auth'>
         <form onSubmit={this.handleSubmit}>
-          <input type="text" value={username} name="username" onChange={this.handleChange} placeholder="Username"/><br></br>
-          <input type="text" value={password} name="password" onChange={this.handleChange} placeholder="Password"/><br></br>
-          <input type="submit" value="Login" />
+          <input type='text' value={username} name='username' onChange={this.handleChange} placeholder='Username'/><br></br>
+          <input type='text' value={password} name='password' onChange={this.handleChange} placeholder='Password'/><br></br>
+          <Button type='submit'>Login</Button>
         </form>
-        <br></br>
+
         {!this.state.submitted && (
-          <div>
-            Don't have an account? Click here to <Link to="/register">Register</Link>.
-          </div>
+          <span>
+            Don't have an account? Click here to <Link to='/register'>Register</Link>.
+          </span>
         )}
         {this.state.submitted && this.state.id === undefined && (
-          <div>
-            User does not exist. Click here to <Link to="/register">Register</Link>.
-          </div>
+          <span>
+            User does not exist. Click here to <Link to='/register'>Register</Link>.
+          </span>
         )}
         {this.state.submitted && this.state.id !== undefined && (
-          <div>
-            <p>Welcome back, {name}! Click 
-              <Link to={{
-                pathname: '/',
-                aboutProps:{
-                  name: {name}
-                }
-              }}>here</Link>
-              to start shopping!</p>
-          </div>
+          <span>
+            Welcome back, {name}! Click <a href='/'>here</a> to start shopping!
+          </span>
         )}
       </div>
     )

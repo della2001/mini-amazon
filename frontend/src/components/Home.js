@@ -16,7 +16,7 @@ const Home = () => {
 
   useEffect(() => {
     api.get('items/small').then(res => {
-      setItems(res.data)
+      setItems(res.data.filter(p => p.item_id !== 33))
     })
   }, [])
 

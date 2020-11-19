@@ -1,19 +1,20 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
 
 class Register extends Component {
   constructor(props) {
-    super(props);
-    this.state = { name: '', username: '', password:'', address: '', is_buyer: false, is_seller: false };
-    this.handleChange= this.handleChange.bind(this);
-    this.handleSubmit= this.handleSubmit.bind(this); 
+    super(props)
+    this.state = { name: '', username: '', password:'', address: '', is_buyer: false, is_seller: false }
+    this.handleChange= this.handleChange.bind(this)
+    this.handleSubmit= this.handleSubmit.bind(this) 
   }
 
   handleChange = (event) => {
-    const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
-    this.setState({[name]: value});
+    const target = event.target
+    const value = target.type === 'checkbox' ? target.checked : target.value
+    const name = target.name
+    this.setState({[name]: value})
   }
 
   handleSubmit = (event) => {
@@ -40,80 +41,29 @@ class Register extends Component {
 
 
   render() {
-    const { username, password, name, address } = this.state;
+    const { username, password, name, address } = this.state
 
     return (
-      <div>
+      <div className='auth'>
         <form onSubmit={this.handleSubmit}>
-            <input type='text' value={name} name='name' onChange={this.handleChange} placeholder='Name'/><br></br>
-            <input type='text' value={username} name='username' onChange={this.handleChange} placeholder='Username'/><br></br>
-            <input type='text' value={password} name='password' onChange={this.handleChange} placeholder='Password'/><br></br>
-            <input type='text' value={address} name='address' onChange={this.handleChange} placeholder='Address'/><br></br>
-            <label htmlFor='is_buyer'>Buyer</label><input type='checkbox' checked={this.state.is_buyer} name = 'is_buyer' onChange={this.handleChange}/><br></br>
-            <label htmlFor='is_seller'>Seller</label><input type='checkbox' checked={this.state.is_seller} name = 'is_seller' onChange={this.handleChange}/><br></br>
-            <input type='submit' value='Submit' />
+          <input type='text' value={name} name='name' onChange={this.handleChange} placeholder='Name'/><br></br>
+          <input type='text' value={username} name='username' onChange={this.handleChange} placeholder='Username'/><br></br>
+          <input type='text' value={password} name='password' onChange={this.handleChange} placeholder='Password'/><br></br>
+          <input type='text' value={address} name='address' onChange={this.handleChange} placeholder='Address'/><br></br>
+          <div className='checkboxes'>
+            <label htmlFor='is_buyer'>Buyer</label><input type='checkbox' checked={this.state.is_buyer} name = 'is_buyer' onChange={this.handleChange}/>
+            <div style={{ width: 16 }} />
+            <label htmlFor='is_seller'>Seller </label><input type='checkbox' checked={this.state.is_seller} name = 'is_seller' onChange={this.handleChange}/>
+          </div>
+          <Button type='submit'>Register</Button>
         </form>
-        <br></br>
-        {this.state.id !== undefined &&
-          <div>Registration successful! Welcome, {name}. Click <Link to='/'>here</Link> to start browsing!</div>
-        }
+        {this.state.id !== undefined && (
+          <span>Registration successful! Welcome, {name}. Click <a href='/'>here</a> to start browsing!</span>
+        )}
       </div>
       
-    );
+    )
   }
 }
 
-export default Register;
-/*
-function Register() {
-  const { register, handleSubmit } = useForm();
-  const onSubmit = data => {
-      fetch('/registration/', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-          });
-    console.log('REGISTERED NEW USER');
-    console.log(data);
-    };
-
-  return (
-    <div className='Register'>
-      <h3>Create account</h3>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div>
-          <input name='name' placeholder='Name' ref={register} />
-        </div>
-
-        <div>
-          <input name='username' placeholder='Username' ref={register} />
-        </div>
-
-        <div>
-          <input name='password' placeholder='Password' ref={register} />
-        </div>
-
-        <div>
-          <input name='address' placeholder='Address' ref={register}/>
-        </div>
-
-        <div>
-          <label htmlFor='is_buyer'>Buyer</label>
-          <input type='checkbox' name='is_buyer' placeholder='buyer' ref={register}/>
-        </div>
-
-        <div>
-          <label htmlFor='is_seller'>Seller</label>
-          <input type='checkbox' name='is_seller' placeholder='seller' ref={register}/>
-        </div>
-
-        <input type='submit' value='Register'/>
-      </form>
-    </div>
-  );
-}
-
-export default Register;
-*/
+export default Register

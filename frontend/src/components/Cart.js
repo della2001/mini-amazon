@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
 import Table from 'react-bootstrap/Table'
-import Card from './Card'
+import Button from 'react-bootstrap/Button'
 import api from '../api'
 
 const Cart = () => {
@@ -31,7 +29,7 @@ const Cart = () => {
           setIsLoading(false)
         })
     })
-  }, [])
+  }, [user_id])
 
   const getTotalCount = (items) => items.reduce((acc, cur) => acc + cur.count, 0)
 
@@ -48,7 +46,7 @@ const Cart = () => {
   return (
     <div>
       <div className='cart-table'>
-        <Table striped hover>
+        <Table striped>
           <thead>
             <tr>
               <th>Image</th>
@@ -59,8 +57,8 @@ const Cart = () => {
           </thead>
           <tbody>
             {items.map(item => (
-              <tr>
-                <td><img src={item.image} className='card-image' /></td>
+              <tr key={item.item_id}>
+                <td><img src={item.image} alt='product' className='card-image' /></td>
                 <td>
                   <h3>
                     <Link to={`/product/${item.item_id}`}>
@@ -77,9 +75,15 @@ const Cart = () => {
               <td><strong>{getTotalCount(items)}</strong></td>
               <td><strong>${getTotalCost(items)}</strong></td>
             </tr>
+            <tr>
+              {/* <td colSpan='4'><Button>Checkout</Button></td> */}
+              <td colSpan='3'></td>
+              <td><Button>Checkout</Button></td>
+            </tr>
           </tbody>
         </Table>
       </div>
+      {/* <Button>Checkout</Button> */}
     </div>
   )
 }

@@ -29,6 +29,74 @@
     transform: translateY(6px);
 }
 
+.product-details {
+    margin: 64px auto;
+    display: flex;
+    justify-content: space-between;
+}
+
+.product-details > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 0 24px;
+}
+
+.product-details > div:first-child {
+    width: 400px;
+}
+
+.product-details > div:last-child {
+    width: calc(100% - 400px);
+    text-align: left;
+}
+
+.product-details img {
+    margin-top: 0;
+    margin-bottom: 36px;
+    border-radius: 0;
+}
+
+.product-details .price {
+    font-size: 21px;
+}
+
+.auth form {
+    width: 400px;
+    /* border: 1px rgb(186, 186, 186) solid; */
+    border-radius: 8px;
+    padding: 24px 0;
+    margin: 32px auto;
+    margin-top: 128px;
+}
+
+.auth form input {
+    margin-bottom: 12px;
+    /* appearance: none; */
+    border: 1px rgb(186, 186, 186) solid;
+    border-radius: 4px;
+    padding: 4px 12px;
+}
+
+.auth form .checkboxes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.auth form .checkboxes label {
+    margin: 0;
+    margin-right: 8px;
+}
+
+.auth form .checkboxes input {
+    margin: 0;
+}
+
+.auth > span {
+    font-size: 15px;
+}
 
 .title {
     margin-right: 50px;
@@ -40,9 +108,19 @@
     width: 500px;
 }
 
-.cartButton, .registerButton, .loginButton{
+.cartButton, .registerButton, .loginButton, .logoutButton {
     max-height: 40px;
     margin: 25px 10px 10px 10px;
+}
+
+.logoutButton {
+    background-color: rgb(138, 138, 138)!important;
+    border-color: rgb(138, 138, 138)!important;
+}
+
+.logoutButton:hover {
+    background-color: rgb(96, 96, 96)!important;
+    border-color: rgb(96, 96, 96)!important;
 }
 
 .cart-table {
@@ -105,13 +183,6 @@
 .card-image-details {
     margin: auto;
     width: 50%;
-}
-
-.productdetails {
-    margin-top: 32px;
-    margin-left: 150px;
-    margin-right: 100px;
-    padding-bottom: 64px;
 }
 
 .carousel {

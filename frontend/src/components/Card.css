@@ -1,68 +1,60 @@
 .card {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  /* box-shadow: 0 4px 8px 0 rgba(107, 107, 107, 0.2); */
   transition: 0.6s;
   width: 300px;
   height: 500px;
   background-color: white;
   margin: 25px auto;
   border-radius: 10px;
-  /* cursor: pointer; */
+  border-color: rgba(107, 107, 107, 0.2);
   transform-style: preserve-3d;
+  display: flex;
+  justify-content: space-between;
+  transition: 0.4s;
 }
 
-.card-flip {
-  transform: rotateY(180deg);
+.card:hover {
+  transform: scale(1.03) translateZ(0);
+  box-shadow: 0 4px 12px 0 rgba(0,0,0,0.2);
 }
 
-.front, .back {
-  backface-visibility: hidden;
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 480px;
+.card .cover {
+  flex: 1;
+  overflow: hidden;
+  padding: 24px;
 }
 
-.front {
-  z-index: 2;
-  transform: rotateY(0deg);
+.card .cover img {
+  height: 100%;
+  width: 100%;
+  border-radius: 8px;
+  object-fit: contain;
 }
 
-.back {
-  transform: rotateY(180deg);
+.card .body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
 }
 
-.container {
-  padding: 2px 16px;
-  background-color: white;
-  border-radius: 0 0 10px 10px;
+.card .body h3 {
+  margin: 0;
 }
 
-.container-back {
-  padding: 2px 16px;
-  background-color: white;
-  border-radius: 10px 10px 10px 10px;
+.card .body button {
+  margin-top: 16px;
+  /* color: #007bff;
+  border-color: #4898f1;
+  background-color: transparent; */
 }
 
-.card-image {
-  width: 50%;
-  max-height: 200px;
-  margin: 25px;
-  border-radius: 10px 10px 5px 05px
-}
-
-.card-image-details {
-  max-width: 500px;
-  float: left;
-  border-radius: 10px 10px 0 0;
-}
-
-.cardtitle {
-  font-size: 20px;
-  font-weight: 500;
+.card .body .title {
+  font-size: 20px!important;
   cursor: pointer;
 }
 
-.price {
+.card .body .price {
   font-size: 20px;
   font-weight: 500;
 }

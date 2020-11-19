@@ -1,5 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
+import Button from 'react-bootstrap/Button'
 import api from '../api'
 import './Card.css'
 
@@ -11,6 +12,8 @@ const addToCart = (e, item_id) => {
       item_id,
       user_id,
       count: 1
+    }).then(res => {
+      alert('Item has been added to cart')
     })
   } else {
     alert('Please log in or register first')
@@ -22,25 +25,18 @@ const Card = ({ item }) => {
 
   return (
     <div className='card' onClick={() => history.push(`/products/${item.item_id}`)}>
-      <div className='front'>
-        <img src={item.image} className='card-image' />
-        <div className='container'>
-            <a className='cardtitle'>{item.name}</a>
-          <h3>
-            <span className='price'> ${item.price}</span>
-          </h3> 
-          <br></br>
-          {item.count ? (
-            <span>Unit in cart: {item.count}</span>
-          ) : (
-            <button
-              onClick={e => addToCart(e, item.item_id)}
-              className='button primary'
-            >
-              Add To Cart
-            </button>
-          )}
-        </div>
+      <div className='cover'>
+        <img src={item.image} alt='product' className='card-image' />
+      </div>
+
+      <div className='body'>
+        <h3 className='title'>{item.name}</h3>
+        <h3>
+          <span className='price'>${item.price}</span>
+        </h3> 
+        <Button onClick={e => addToCart(e, item.item_id)}>
+          Add To Cart
+        </Button>
       </div>
     </div>
   )

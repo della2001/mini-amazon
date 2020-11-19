@@ -50,12 +50,12 @@ class Register extends Component {
             <input type="text" value={username} name='username' onChange={this.handleChange} placeholder="Username"/><br></br>
             <input type="text" value={password} name='password' onChange={this.handleChange} placeholder="Password"/><br></br>
             <input type="text" value={address} name='address' onChange={this.handleChange} placeholder="Address"/><br></br>
-            <label htmlFor="username">Buyer</label><input type="checkbox" checked={this.state.is_buyer} name = 'usertype' onChange={this.handleChange}/><br></br>
-            <label htmlFor="username">Seller</label><input type="checkbox" checked={this.state.is_seller} name = 'usertype' onChange={this.handleChange}/><br></br>
+            <label htmlFor="is_buyer">Buyer</label><input type="checkbox" checked={this.state.is_buyer} name = 'is_buyer' onChange={this.handleChange}/><br></br>
+            <label htmlFor="is_seller">Seller</label><input type="checkbox" checked={this.state.is_seller} name = 'is_seller' onChange={this.handleChange}/><br></br>
             <input type="submit" value="Submit" />
         </form>
         <br></br>
-        {this.state.id !== undefined &&
+        {this.state.submitted !== undefined &&
           <div>Registration successful! Welcome, {name}. Click <Link to="/">here</Link> to start browsing!</div>
         }
       </div>
